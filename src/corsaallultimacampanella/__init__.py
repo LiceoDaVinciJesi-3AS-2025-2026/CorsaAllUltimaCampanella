@@ -1,7 +1,6 @@
 def main() -> None:
     print("Hello from corsaallultimacampanella!")
-
-# importa ed inizializza la libreria pygame
+    
 import pygame
 
 pygame.init()
@@ -11,14 +10,20 @@ SCREEN_HEIGHT = 1005
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("corsa all'ultima campanella!")
-buttonRect = pygame.Rect(SCREEN_WIDTH // 2.399, SCREEN_HEIGHT // 1.48, 280, 80)
+
+#bottone per comicnicare
+buttonStart = pygame.Rect(SCREEN_WIDTH // 2.399, SCREEN_HEIGHT // 1.235, 280, 80)
+
+#bottone per visualizzare i personaggi
+buttonPersonaggi = pygame.Rect(SCREEN_WIDTH // 2.4, SCREEN_HEIGHT // 1.48, 280, 80)
 
 imgSfondo = pygame.image.load("pixelscuola.png") 
 imgSfondo = pygame.transform.scale(imgSfondo,(SCREEN_WIDTH,SCREEN_HEIGHT))
 
 
-Normalfont = pygame.font.SysFont('Impact', 70)
-close_tip = Normalfont.render("start", True, "black")
+Normalfont = pygame.font.SysFont('Impact', 60)
+parolaButtonStart = Normalfont.render("start", True, "black")
+parolaButtonPersonaggi = Normalfont.render("personaggi", True, "black")
 
 running = True
 
@@ -32,19 +37,28 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
         if event.type == pygame.MOUSEBUTTONDOWN: 
-            if buttonRect.collidepoint(mPos):
-                running = False
+            if buttonStart.collidepoint(mPos):
+                running = True
+        if event.type == pygame.MOUSEBUTTONDOWN: 
+            if buttonPersonaggi.collidepoint(mPos):
+                running = True
                 
     screen.fill("green")
     screen.blit(imgSfondo,(0,0) )
 
-    buttonColor = "white"
-    if buttonRect.collidepoint(mPos):
-        buttonColor = "yellow"
-    button = pygame.draw.rect(screen,buttonColor,buttonRect)
+    buttonColorS = "white"
+    if buttonStart.collidepoint(mPos):
+        buttonColorS = "grey"
+    buttonS = pygame.draw.rect(screen,buttonColorS,buttonStart)
+    screen.blit(parolaButtonStart, (SCREEN_WIDTH // 2.18, SCREEN_HEIGHT // 1.235))
     
-    screen.blit(close_tip, (SCREEN_WIDTH // 2.22, SCREEN_HEIGHT // 1.5))
+    buttonColorP = "white"
+    if buttonPersonaggi.collidepoint(mPos):
+        buttonColorP = "grey"
+    buttonP = pygame.draw.rect(screen,buttonColorP,buttonPersonaggi)
+    screen.blit(parolaButtonPersonaggi, (SCREEN_WIDTH // 2.4, SCREEN_HEIGHT // 1.475))
+    
     pygame.display.flip()
 
-# Chiude pygame
+
 pygame.quit()
