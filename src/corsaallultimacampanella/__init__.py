@@ -1,6 +1,7 @@
 def main() -> None:
     print("Hello from corsaallultimacampanella!")
 
+# importa ed inizializza la libreria pygame
 import pygame
 
 pygame.init()
