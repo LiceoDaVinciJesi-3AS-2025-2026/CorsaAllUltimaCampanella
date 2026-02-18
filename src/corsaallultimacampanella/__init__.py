@@ -5,8 +5,8 @@ import pygame
 
 pygame.init()
 
-SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 1005
+SCREEN_WIDTH = 1600
+SCREEN_HEIGHT = 925
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("corsa all'ultima campanella!")
@@ -65,7 +65,7 @@ while running:
         if buttonStart.collidepoint(mPos):
             buttonColorS = "dark grey"
         buttonS = pygame.draw.rect(screen,buttonColorS,buttonStart)
-        screen.blit(parolaButtonStart, (SCREEN_WIDTH // 2.18, SCREEN_HEIGHT // 1.235))
+        screen.blit(parolaButtonStart, (SCREEN_WIDTH // 2.14, SCREEN_HEIGHT // 1.235))
         
         buttonColorP = "white"
         if buttonPersonaggi.collidepoint(mPos):
