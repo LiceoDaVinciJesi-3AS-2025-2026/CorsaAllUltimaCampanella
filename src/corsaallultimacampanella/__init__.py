@@ -118,7 +118,12 @@ while running:
     
     else:
         screen.fill("red")
-        
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                home = True
+                personaggi = True
+
     pygame.display.flip()
     clock.tick(60)
 
