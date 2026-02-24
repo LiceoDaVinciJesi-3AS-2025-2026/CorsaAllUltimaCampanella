@@ -23,8 +23,8 @@ imgSfondoPrincipale = pygame.transform.scale(imgSfondoPrincipale,(SCREEN_WIDTH,S
 imgSfondoPersonaggi = pygame.image.load("sfondopersonaggi.png")
 imgSfondoPersonaggi = pygame.transform.scale(imgSfondoPersonaggi,(SCREEN_WIDTH,SCREEN_HEIGHT))
 
-imgItaliano = pygame.image.load("pixelita.png") 
-imgItaliano = pygame.transform.scale(imgItaliano,(350,350))
+imgGinnastica = pygame.image.load("pixelginnastica.png") 
+imgGinnastica = pygame.transform.scale(imgGinnastica,(350,350))
 imgStofilo = pygame.image.load("pixelstofilo.png") 
 imgStofilo = pygame.transform.scale(imgStofilo,(350,350))
 imgArte = pygame.image.load("pixelarte.png") 
@@ -95,10 +95,28 @@ while running:
     #se ci troviamo nel gioco
     elif personaggi:
         screen.blit(imgSfondoPersonaggi,(0,0))
-        #inserisco immagine prof di italiano nella schermata dei personaggi
-        screen.blit(imgItaliano, (48, 90))
+        
+        #inserisco immagine prof di ginnastic nella schermata dei personaggi
+        screen.blit(imgGinnastica, (48, 90))
+        buttonGinnastica = pygame.Rect(SCREEN_WIDTH // 14, SCREEN_HEIGHT // 2.25, 260, 60)
+        parolaButtonGinn = Normalfont.render("Livello 1", True, "black")
+        
+        buttonColorG = "white"
+        if buttonGinnastica.collidepoint(mPos):
+            buttonColorG = "dark grey"
+        buttonG = pygame.draw.rect(screen,buttonColorG,buttonGinnastica)
+        screen.blit(parolaButtonGinn, (SCREEN_WIDTH // 14, SCREEN_HEIGHT // 2.3))
+        
         #inserisco immagine prof di storia e filosofia nella schermata dei personaggi
         screen.blit(imgStofilo, (420, 100))
+        buttonStoFilo = pygame.Rect(SCREEN_WIDTH // 3.37, SCREEN_HEIGHT // 2.25, 230, 60)
+        parolaButtonStoFilo = Normalfont.render("Livello 2", True, "black")
+        
+        buttonColorStoFilo = "white"
+        if buttonStoFilo.collidepoint(mPos):
+            buttonColorStoFilo = "dark grey"
+        buttonSF = pygame.draw.rect(screen,buttonColorStoFilo,buttonStoFilo)
+        screen.blit(parolaButtonStoFilo, (SCREEN_WIDTH // 3.5, SCREEN_HEIGHT // 2.3))
         #inserisco immagine prof di arte nella schermata dei personaggi
         screen.blit(imgArte, (770, 80))
         #inserisco immagine prof di inglese nella schermata dei personaggi
@@ -128,4 +146,3 @@ while running:
     clock.tick(60)
 
 pygame.quit()
-
