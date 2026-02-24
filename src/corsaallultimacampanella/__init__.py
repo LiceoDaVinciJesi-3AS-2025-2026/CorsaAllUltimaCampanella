@@ -79,6 +79,41 @@ imgPers1 = pygame.transform.scale(imgPers1, (larghezza_player, altezza_normale))
 imgPers1Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
 imgPers1Crouch = pygame.transform.scale(imgPers1Crouch, (larghezza_player, altezza_crouch))
 
+imgPers2 = pygame.image.load("pixelstofilo.png").convert_alpha()
+imgPers2 = pygame.transform.scale(imgPers2, (larghezza_player, altezza_normale))
+imgPers2Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
+imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player, altezza_crouch))
+
+imgPers3 = pygame.image.load("pixelarte.png").convert_alpha()
+imgPers3 = pygame.transform.scale(imgPers3, (larghezza_player, altezza_normale))
+imgPers3Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
+imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player, altezza_crouch))
+
+imgPers4 = pygame.image.load("pixeling.png").convert_alpha()
+imgPers4 = pygame.transform.scale(imgPers4, (larghezza_player, altezza_normale))
+imgPers4Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
+imgPers4Crouch = pygame.transform.scale(imgPers4Crouch, (larghezza_player, altezza_crouch))
+
+imgPers5 = pygame.image.load("pixelmate.png").convert_alpha()
+imgPers5 = pygame.transform.scale(imgPers5, (larghezza_player, altezza_normale))
+imgPers5Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
+imgPers5Crouch = pygame.transform.scale(imgPers5Crouch, (larghezza_player, altezza_crouch))
+
+imgPers6 = pygame.image.load("pixelfisica.png").convert_alpha()
+imgPers6 = pygame.transform.scale(imgPers6, (larghezza_player, altezza_normale))
+imgPers6Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
+imgPers6Crouch = pygame.transform.scale(imgPers6Crouch, (larghezza_player, altezza_crouch))
+
+imgPers7 = pygame.image.load("pixelscienze.png").convert_alpha()
+imgPers7 = pygame.transform.scale(imgPers7, (larghezza_player, altezza_normale))
+imgPers7Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
+imgPers7Crouch = pygame.transform.scale(imgPers7Crouch, (larghezza_player, altezza_crouch))
+
+imgPers8 = pygame.image.load("pixelinfo.png").convert_alpha()
+imgPers8 = pygame.transform.scale(imgPers8, (larghezza_player, altezza_normale))
+imgPers8Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
+imgPers8Crouch = pygame.transform.scale(imgPers8Crouch, (larghezza_player, altezza_crouch))
+
 clock = pygame.time.Clock()
 
 running = True
@@ -327,7 +362,266 @@ while running:
         if is_crouching:
             screen.blit(imgPers1Crouch, player_rect)
         else:
-            screen.blit(imgPers1, player_rect)   
+            screen.blit(imgPers1, player_rect)
+            
+    elif Livello2:
+        screen.blit(imgLivello, (0, 0))
+        keys = pygame.key.get_pressed()
+        
+        # -------- SALTO --------
+        if keys[pygame.K_SPACE] and al_suolo:
+            vel_y = salto
+            al_suolo = False
+
+        # -------- STRISCIARE --------
+        if keys[pygame.K_DOWN] and al_suolo:
+            is_crouching = True
+            player_rect.height = altezza_crouch
+            player_rect.bottom = ground_y 
+        else:
+            is_crouching = False
+            player_rect.height = altezza_normale
+            # Se non sta saltando, assicurati che i piedi tocchino terra
+            if al_suolo:
+                player_rect.bottom = ground_y
+                
+        # -------- GRAVITÀ --------
+        vel_y += gravita
+        player_rect.y += vel_y
+
+        # Collisione col terreno
+        if player_rect.bottom >= ground_y:
+            player_rect.bottom = ground_y
+            vel_y = 0
+            al_suolo = True
+            
+        # --- Cambia immagine e altezza ---
+        if is_crouching:
+            screen.blit(imgPers2Crouch, player_rect)
+        else:
+            screen.blit(imgPers2, player_rect)
+        
+    elif Livello3:
+        screen.blit(imgLivello, (0, 0))
+        keys = pygame.key.get_pressed()
+        
+        # -------- SALTO --------
+        if keys[pygame.K_SPACE] and al_suolo:
+            vel_y = salto
+            al_suolo = False
+
+        # -------- STRISCIARE --------
+        if keys[pygame.K_DOWN] and al_suolo:
+            is_crouching = True
+            player_rect.height = altezza_crouch
+            player_rect.bottom = ground_y 
+        else:
+            is_crouching = False
+            player_rect.height = altezza_normale
+            # Se non sta saltando, assicurati che i piedi tocchino terra
+            if al_suolo:
+                player_rect.bottom = ground_y
+                
+        # -------- GRAVITÀ --------
+        vel_y += gravita
+        player_rect.y += vel_y
+
+        # Collisione col terreno
+        if player_rect.bottom >= ground_y:
+            player_rect.bottom = ground_y
+            vel_y = 0
+            al_suolo = True
+            
+        # --- Cambia immagine e altezza ---
+        if is_crouching:
+            screen.blit(imgPers3Crouch, player_rect)
+        else:
+            screen.blit(imgPers3, player_rect)
+            
+    elif Livello4:
+        screen.blit(imgLivello, (0, 0))
+        keys = pygame.key.get_pressed()
+        
+        # -------- SALTO --------
+        if keys[pygame.K_SPACE] and al_suolo:
+            vel_y = salto
+            al_suolo = False
+
+        # -------- STRISCIARE --------
+        if keys[pygame.K_DOWN] and al_suolo:
+            is_crouching = True
+            player_rect.height = altezza_crouch
+            player_rect.bottom = ground_y 
+        else:
+            is_crouching = False
+            player_rect.height = altezza_normale
+            # Se non sta saltando, assicurati che i piedi tocchino terra
+            if al_suolo:
+                player_rect.bottom = ground_y
+                
+        # -------- GRAVITÀ --------
+        vel_y += gravita
+        player_rect.y += vel_y
+
+        # Collisione col terreno
+        if player_rect.bottom >= ground_y:
+            player_rect.bottom = ground_y
+            vel_y = 0
+            al_suolo = True
+            
+        # --- Cambia immagine e altezza ---
+        if is_crouching:
+            screen.blit(imgPers4Crouch, player_rect)
+        else:
+            screen.blit(imgPers4, player_rect)
+            
+    elif Livello5:
+        screen.blit(imgLivello, (0, 0))
+        keys = pygame.key.get_pressed()
+        
+        # -------- SALTO --------
+        if keys[pygame.K_SPACE] and al_suolo:
+            vel_y = salto
+            al_suolo = False
+
+        # -------- STRISCIARE --------
+        if keys[pygame.K_DOWN] and al_suolo:
+            is_crouching = True
+            player_rect.height = altezza_crouch
+            player_rect.bottom = ground_y 
+        else:
+            is_crouching = False
+            player_rect.height = altezza_normale
+            # Se non sta saltando, assicurati che i piedi tocchino terra
+            if al_suolo:
+                player_rect.bottom = ground_y
+                
+        # -------- GRAVITÀ --------
+        vel_y += gravita
+        player_rect.y += vel_y
+
+        # Collisione col terreno
+        if player_rect.bottom >= ground_y:
+            player_rect.bottom = ground_y
+            vel_y = 0
+            al_suolo = True
+            
+        # --- Cambia immagine e altezza ---
+        if is_crouching:
+            screen.blit(imgPers5Crouch, player_rect)
+        else:
+            screen.blit(imgPers5, player_rect)
+    
+    elif Livello6:
+        screen.blit(imgLivello, (0, 0))
+        keys = pygame.key.get_pressed()
+        
+        # -------- SALTO --------
+        if keys[pygame.K_SPACE] and al_suolo:
+            vel_y = salto
+            al_suolo = False
+
+        # -------- STRISCIARE --------
+        if keys[pygame.K_DOWN] and al_suolo:
+            is_crouching = True
+            player_rect.height = altezza_crouch
+            player_rect.bottom = ground_y 
+        else:
+            is_crouching = False
+            player_rect.height = altezza_normale
+            # Se non sta saltando, assicurati che i piedi tocchino terra
+            if al_suolo:
+                player_rect.bottom = ground_y
+                
+        # -------- GRAVITÀ --------
+        vel_y += gravita
+        player_rect.y += vel_y
+
+        # Collisione col terreno
+        if player_rect.bottom >= ground_y:
+            player_rect.bottom = ground_y
+            vel_y = 0
+            al_suolo = True
+            
+        # --- Cambia immagine e altezza ---
+        if is_crouching:
+            screen.blit(imgPers6Crouch, player_rect)
+        else:
+            screen.blit(imgPers6, player_rect)
+            
+    elif Livello7:
+        screen.blit(imgLivello, (0, 0))
+        keys = pygame.key.get_pressed()
+        
+        # -------- SALTO --------
+        if keys[pygame.K_SPACE] and al_suolo:
+            vel_y = salto
+            al_suolo = False
+
+        # -------- STRISCIARE --------
+        if keys[pygame.K_DOWN] and al_suolo:
+            is_crouching = True
+            player_rect.height = altezza_crouch
+            player_rect.bottom = ground_y 
+        else:
+            is_crouching = False
+            player_rect.height = altezza_normale
+            # Se non sta saltando, assicurati che i piedi tocchino terra
+            if al_suolo:
+                player_rect.bottom = ground_y
+                
+        # -------- GRAVITÀ --------
+        vel_y += gravita
+        player_rect.y += vel_y
+
+        # Collisione col terreno
+        if player_rect.bottom >= ground_y:
+            player_rect.bottom = ground_y
+            vel_y = 0
+            al_suolo = True
+            
+        # --- Cambia immagine e altezza ---
+        if is_crouching:
+            screen.blit(imgPers7Crouch, player_rect)
+        else:
+            screen.blit(imgPers7, player_rect)
+            
+    elif Livello8:
+        screen.blit(imgLivello, (0, 0))
+        keys = pygame.key.get_pressed()
+        
+        # -------- SALTO --------
+        if keys[pygame.K_SPACE] and al_suolo:
+            vel_y = salto
+            al_suolo = False
+
+        # -------- STRISCIARE --------
+        if keys[pygame.K_DOWN] and al_suolo:
+            is_crouching = True
+            player_rect.height = altezza_crouch
+            player_rect.bottom = ground_y 
+        else:
+            is_crouching = False
+            player_rect.height = altezza_normale
+            # Se non sta saltando, assicurati che i piedi tocchino terra
+            if al_suolo:
+                player_rect.bottom = ground_y
+                
+        # -------- GRAVITÀ --------
+        vel_y += gravita
+        player_rect.y += vel_y
+
+        # Collisione col terreno
+        if player_rect.bottom >= ground_y:
+            player_rect.bottom = ground_y
+            vel_y = 0
+            al_suolo = True
+            
+        # --- Cambia immagine e altezza ---
+        if is_crouching:
+            screen.blit(imgPers8Crouch, player_rect)
+        else:
+            screen.blit(imgPers8, player_rect)
                
 
     pygame.display.flip()
