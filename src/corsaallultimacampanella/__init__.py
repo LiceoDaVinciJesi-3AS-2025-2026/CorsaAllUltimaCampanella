@@ -11,18 +11,27 @@ SCREEN_HEIGHT = 925
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("corsa all'ultima campanella!")
 
-#bottone per comicnicare
+#bottoni vari
 buttonInfo = pygame.Rect(SCREEN_WIDTH // 2.45, SCREEN_HEIGHT // 1.235, 310, 80)
+buttonStart = pygame.Rect(SCREEN_WIDTH // 2.4, SCREEN_HEIGHT // 1.48, 280, 80)
+buttonGinnastica = pygame.Rect(SCREEN_WIDTH // 14.4, SCREEN_HEIGHT // 2.25, 230, 60)
+buttonStoFilo = pygame.Rect(SCREEN_WIDTH // 3.37, SCREEN_HEIGHT // 2.25, 230, 60)
+buttonArte = pygame.Rect(SCREEN_WIDTH // 1.89, SCREEN_HEIGHT // 2.25, 230, 60)
+buttonInglese = pygame.Rect(SCREEN_WIDTH // 1.32, SCREEN_HEIGHT // 2.25, 230, 60)
+buttonMatematica = pygame.Rect(SCREEN_WIDTH // 14.4, SCREEN_HEIGHT // 1.14, 230, 60)
+buttonFisica = pygame.Rect(SCREEN_WIDTH // 3.37, SCREEN_HEIGHT // 1.13, 230, 60)
+buttonScienze = pygame.Rect(SCREEN_WIDTH // 1.89, SCREEN_HEIGHT // 1.14, 230, 60)
+buttonInformatica = pygame.Rect(SCREEN_WIDTH // 1.32, SCREEN_HEIGHT // 1.14, 230, 60)
 
-#bottone per visualizzare i personaggi
-buttonPersonaggi = pygame.Rect(SCREEN_WIDTH // 2.4, SCREEN_HEIGHT // 1.48, 280, 80)
-
+#sfondo nella home
 imgSfondoPrincipale = pygame.image.load("pixelscuola.png") 
 imgSfondoPrincipale = pygame.transform.scale(imgSfondoPrincipale,(SCREEN_WIDTH,SCREEN_HEIGHT))
 
+#sfondo nella schermata dei personaggi
 imgSfondoPersonaggi = pygame.image.load("sfondopersonaggi.png")
 imgSfondoPersonaggi = pygame.transform.scale(imgSfondoPersonaggi,(SCREEN_WIDTH,SCREEN_HEIGHT))
 
+#immagini dei prof
 imgGinnastica = pygame.image.load("pixelginnastica.png") 
 imgGinnastica = pygame.transform.scale(imgGinnastica,(350,350))
 imgStofilo = pygame.image.load("pixelstofilo.png") 
@@ -40,19 +49,55 @@ imgScienze = pygame.transform.scale(imgScienze,(380,380))
 imgInformatica = pygame.image.load("pixelinfo.png") 
 imgInformatica = pygame.transform.scale(imgInformatica,(350,350))
 
+#sfondo dei livelli
+imgLivello = pygame.image.load("sfondoLivello.png") 
+imgLivello = pygame.transform.scale(imgLivello, (SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#font delle parole nei bottoni e parole 
 Normalfont = pygame.font.SysFont('Impact', 60)
 parolaButtonInfo = Normalfont.render("informazioni", True, "black")
-parolaButtonPersonaggi = Normalfont.render("personaggi", True, "black")
+parolaButtonStart = Normalfont.render("start", True, "black")
+
+# Dati dei giocatori
+player_rect = pygame.Rect(100, 0, 470, 470)
+vel_y = 0 #velocità iniziale
+gravita = 0.8
+salto = -22
+al_suolo = True
+is_crouching = False
+altezza_normale = 470
+altezza_crouch = 350
+ground_y = 800  # altezza del pavimento nel livello
+larghezza_player = 470
+# Player Rect
+player_rect = pygame.Rect(100, 0, larghezza_player, altezza_normale)
+player_rect.bottom = ground_y
+
+#immagini giocatori
+imgPers1 = pygame.image.load("pixelginnastica.png").convert_alpha()
+imgPers1 = pygame.transform.scale(imgPers1, (larghezza_player, altezza_normale))
+imgPers1Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
+imgPers1Crouch = pygame.transform.scale(imgPers1Crouch, (larghezza_player, altezza_crouch))
 
 clock = pygame.time.Clock()
 
 running = True
 home = True
-personaggi = True 
-gioco = True
+informazioni = False
+personaggi = False 
+gioco = False 
+Livello1 = False 
+Livello2 = False 
+Livello3 = False 
+Livello4 = False 
+Livello5 = False 
+Livello6 = False 
+Livello7 = False 
+Livello8 = False 
 
 while running:
     mPos = pygame.mouse.get_pos() 
+    keys = pygame.key.get_pressed()
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -61,19 +106,67 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
-                
+                            
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1: #click sinistro 
-                if home and buttonInfo.collidepoint(mPos):
+            if event.button == 1: # Click sinistro 
+                # 1. Se sono in Home e clicco Start -> vado a Personaggi
+                if home and buttonStart.collidepoint(mPos):
+                    home = False
+                    personaggi = True
+                # 2. Se sono in Personaggi e clicco Livello 1 -> vado a Schermata Rossa
+                elif personaggi and buttonGinnastica.collidepoint(mPos):
+                    personaggi = False
+                    Livello1 = True
+                    home = False
+                   
+                elif personaggi and buttonStoFilo.collidepoint(mPos):
+                    personaggi = False
+                    Livello2 = True
+                    home = False
+                    screen.blit(imgLivello, (0, 0))
+                    
+                elif personaggi and buttonArte.collidepoint(mPos):
+                    personaggi = False
+                    Livello3 = True
+                    home = False
+                    screen.blit(imgLivello, (0, 0))
+                    
+                elif personaggi and buttonInglese.collidepoint(mPos):
+                    personaggi = False
+                    Livello4 = True
+                    home = False
+                    screen.blit(imgLivello, (0, 0))
+                
+                elif personaggi and buttonMatematica.collidepoint(mPos):
+                    personaggi = False
+                    Livello5 = True
+                    home = False
+                    screen.blit(imgLivello, (0, 0))
+                 
+                elif personaggi and buttonFisica.collidepoint(mPos):
+                    personaggi = False
+                    Livello6 = True
+                    home = False
+                    screen.blit(imgLivello, (0, 0))
+                
+                elif personaggi and buttonScienze.collidepoint(mPos):
+                    personaggi = False
+                    Livello7 = True
+                    home = False
+                    screen.blit(imgLivello, (0, 0))
+                    
+                elif personaggi and buttonInformatica.collidepoint(mPos):
+                    personaggi = False
+                    Livello8 = True
+                    home = False
+                    screen.blit(imgLivello, (0, 0))
+                    
+                elif home and buttonInfo.collidepoint(mPos):
                     home = False
                     personaggi = False
-        
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1: #click sinistro 
-                if personaggi and buttonPersonaggi.collidepoint(mPos):
-                    home = False
-                    gioco = False
-
+                    informazioni = True 
+                    
+                    
     #se ci troviamo nella schermata home
     if home: 
         screen.blit(imgSfondoPrincipale,(0,0) )
@@ -86,28 +179,30 @@ while running:
         screen.blit(parolaButtonInfo, (SCREEN_WIDTH // 2.445, SCREEN_HEIGHT // 1.235))
         
         #bottone personaggi
-        buttonColorP = "white"
-        if buttonPersonaggi.collidepoint(mPos):
-            buttonColorP = "dark grey"
-        buttonP = pygame.draw.rect(screen,buttonColorP,buttonPersonaggi)
-        screen.blit(parolaButtonPersonaggi, (SCREEN_WIDTH // 2.4, SCREEN_HEIGHT // 1.475))
+        buttonColorS = "white"
+        if buttonStart.collidepoint(mPos):
+            buttonColorS = "dark grey"
+        buttonS = pygame.draw.rect(screen,buttonColorS,buttonStart)
+        screen.blit(parolaButtonStart, (SCREEN_WIDTH // 2.16, SCREEN_HEIGHT // 1.475))
+        
+        
         
     #se ci troviamo nel gioco
     elif personaggi:
         screen.blit(imgSfondoPersonaggi,(0,0))
         
-        #inserisco immagine prof di ginnastic nella schermata dei personaggi
+        #inserisco immagine prof di ginnastica e bottone livello 1 nella schermata dei personaggi
         screen.blit(imgGinnastica, (48, 90))
-        buttonGinnastica = pygame.Rect(SCREEN_WIDTH // 14, SCREEN_HEIGHT // 2.25, 260, 60)
+        buttonGinnastica = pygame.Rect(SCREEN_WIDTH // 14.4, SCREEN_HEIGHT // 2.25, 230, 60)
         parolaButtonGinn = Normalfont.render("Livello 1", True, "black")
         
         buttonColorG = "white"
         if buttonGinnastica.collidepoint(mPos):
             buttonColorG = "dark grey"
         buttonG = pygame.draw.rect(screen,buttonColorG,buttonGinnastica)
-        screen.blit(parolaButtonGinn, (SCREEN_WIDTH // 14, SCREEN_HEIGHT // 2.3))
+        screen.blit(parolaButtonGinn, (SCREEN_WIDTH // 12.5, SCREEN_HEIGHT // 2.3))
         
-        #inserisco immagine prof di storia e filosofia nella schermata dei personaggi
+        #inserisco immagine prof di storia e filosofia e bottone livello 2 nella schermata dei personaggi
         screen.blit(imgStofilo, (420, 100))
         buttonStoFilo = pygame.Rect(SCREEN_WIDTH // 3.37, SCREEN_HEIGHT // 2.25, 230, 60)
         parolaButtonStoFilo = Normalfont.render("Livello 2", True, "black")
@@ -116,33 +211,127 @@ while running:
         if buttonStoFilo.collidepoint(mPos):
             buttonColorStoFilo = "dark grey"
         buttonSF = pygame.draw.rect(screen,buttonColorStoFilo,buttonStoFilo)
-        screen.blit(parolaButtonStoFilo, (SCREEN_WIDTH // 3.5, SCREEN_HEIGHT // 2.3))
-        #inserisco immagine prof di arte nella schermata dei personaggi
+        screen.blit(parolaButtonStoFilo, (SCREEN_WIDTH // 3.27, SCREEN_HEIGHT // 2.3))
+        
+        #inserisco immagine prof di arte e bottone livello 3 nella schermata dei personaggi
         screen.blit(imgArte, (770, 80))
-        #inserisco immagine prof di inglese nella schermata dei personaggi
+        buttonArte = pygame.Rect(SCREEN_WIDTH // 1.89, SCREEN_HEIGHT // 2.25, 230, 60)
+        parolaButtonArte = Normalfont.render("Livello 3", True, "black")
+        
+        buttonColorArte = "white"
+        if buttonArte.collidepoint(mPos):
+            buttonColorArte = "dark grey"
+        buttonArte = pygame.draw.rect(screen,buttonColorArte,buttonArte)
+        screen.blit(parolaButtonArte, (SCREEN_WIDTH // 1.85, SCREEN_HEIGHT // 2.3))
+        
+        #inserisco immagine prof di inglese e bottone livello 4 nella schermata dei personaggi
         screen.blit(imgInglese, (1150, 80))
-        #inserisco immagine prof di matematica nella schermata dei personaggi
+        buttonInglese = pygame.Rect(SCREEN_WIDTH // 1.32, SCREEN_HEIGHT // 2.25, 230, 60)
+        parolaButtonInglese = Normalfont.render("Livello 4", True, "black")
+        
+        buttonColorInglese = "white"
+        if buttonInglese.collidepoint(mPos):
+            buttonColorInglese = "dark grey"
+        buttonInglese = pygame.draw.rect(screen,buttonColorInglese,buttonInglese)
+        screen.blit(parolaButtonInglese, (SCREEN_WIDTH // 1.3, SCREEN_HEIGHT // 2.3))
+        
+        #inserisco immagine prof di matematica e bottone livello 5 nella schermata dei personaggi
         screen.blit(imgMatematica, (48, 515))
-        #inserisco immagine prof di fisica nella schermata dei personaggi
+        buttonMatematica = pygame.Rect(SCREEN_WIDTH // 14.4, SCREEN_HEIGHT // 1.14, 230, 60)
+        parolaButtonMatematica = Normalfont.render("Livello 5", True, "black")
+        
+        buttonColorMatematica = "white"
+        if buttonMatematica.collidepoint(mPos):
+            buttonColorMatematica = "dark grey"
+        buttonMatematica = pygame.draw.rect(screen,buttonColorMatematica,buttonMatematica)
+        screen.blit(parolaButtonMatematica, (SCREEN_WIDTH // 12.5, SCREEN_HEIGHT // 1.15))
+        
+        #inserisco immagine prof di fisica e bottone livello 6 nella schermata dei personaggi
         screen.blit(imgFisica, (420, 510))
-        #inserisco immagine prof di scienze nella schermata dei personaggi
+        buttonFisica = pygame.Rect(SCREEN_WIDTH // 3.37, SCREEN_HEIGHT // 1.13, 230, 60)
+        parolaButtonFisica = Normalfont.render("Livello 6", True, "black")
+        
+        buttonColorFisica = "white"
+        if buttonFisica.collidepoint(mPos):
+            buttonColorFisica = "dark grey"
+        buttonFisica = pygame.draw.rect(screen,buttonColorFisica,buttonFisica)
+        screen.blit(parolaButtonFisica, (SCREEN_WIDTH // 3.27, SCREEN_HEIGHT // 1.14))
+        
+        #inserisco immagine prof di scienze e bottone livello 7 nella schermata dei personaggi
         screen.blit(imgScienze, (770, 490))
-        #inserisco immagine prof di informatica nella schermata dei personaggi
+        buttonScienze = pygame.Rect(SCREEN_WIDTH // 1.89, SCREEN_HEIGHT // 1.14, 230, 60)
+        parolaButtonScienze = Normalfont.render("Livello 7", True, "black")
+        
+        buttonColorScienze = "white"
+        if buttonScienze.collidepoint(mPos):
+            buttonColorScienze = "dark grey"
+        buttonScienze = pygame.draw.rect(screen,buttonColorScienze,buttonScienze)
+        screen.blit(parolaButtonScienze, (SCREEN_WIDTH // 1.85, SCREEN_HEIGHT // 1.15))
+        
+        #inserisco immagine prof di informatica e bottone livello 8 nella schermata dei personaggi
         screen.blit(imgInformatica, (1150, 530))
+        buttonInformatica = pygame.Rect(SCREEN_WIDTH // 1.32, SCREEN_HEIGHT // 1.14, 230, 60)
+        parolaButtonInformatica = Normalfont.render("Livello 8", True, "black")
+        
+        buttonColorInformatica = "white"
+        if buttonInformatica.collidepoint(mPos):
+            buttonColorInformatica = "dark grey"
+        buttonInformatica = pygame.draw.rect(screen,buttonColorInformatica,buttonInformatica)
+        screen.blit(parolaButtonInformatica, (SCREEN_WIDTH // 1.3, SCREEN_HEIGHT // 1.15))
         
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                home = True 
-    
-    else:
+                home = True
+                
+        
+    elif informazioni:
         screen.fill("red")
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 home = True
                 personaggi = True
+                
+    elif Livello1:
+        screen.blit(imgLivello, (0, 0))
+        keys = pygame.key.get_pressed()
+        
+        # -------- SALTO --------
+        if keys[pygame.K_SPACE] and al_suolo:
+            vel_y = salto
+            al_suolo = False
+
+        # -------- STRISCIARE --------
+        if keys[pygame.K_DOWN] and al_suolo:
+            is_crouching = True
+            player_rect.height = altezza_crouch
+            player_rect.bottom = ground_y 
+        else:
+            is_crouching = False
+            player_rect.height = altezza_normale
+            # Se non sta saltando, assicurati che i piedi tocchino terra
+            if al_suolo:
+                player_rect.bottom = ground_y
+                
+        # -------- GRAVITÀ --------
+        vel_y += gravita
+        player_rect.y += vel_y
+
+        # Collisione col terreno
+        if player_rect.bottom >= ground_y:
+            player_rect.bottom = ground_y
+            vel_y = 0
+            al_suolo = True
+            
+        # --- Cambia immagine e altezza ---
+        if is_crouching:
+            screen.blit(imgPers1Crouch, player_rect)
+        else:
+            screen.blit(imgPers1, player_rect)   
+               
 
     pygame.display.flip()
     clock.tick(60)
 
 pygame.quit()
+
