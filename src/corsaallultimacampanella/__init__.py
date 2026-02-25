@@ -103,18 +103,18 @@ imgPers5Crouch = pygame.transform.scale(imgPers5Crouch, (larghezza_player, altez
 
 imgPers6 = pygame.image.load("pixelfisica.png").convert_alpha()
 imgPers6 = pygame.transform.scale(imgPers6, (larghezza_player, altezza_normale))
-imgPers6Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
-imgPers6Crouch = pygame.transform.scale(imgPers6Crouch, (larghezza_player, altezza_crouch))
+imgPers6Crouch = pygame.image.load("fisicasdraiato.png").convert_alpha()
+imgPers6Crouch = pygame.transform.scale(imgPers6Crouch, (larghezza_player, altezza_crouch + 30))
 
 imgPers7 = pygame.image.load("pixelscienze.png").convert_alpha()
 imgPers7 = pygame.transform.scale(imgPers7, (larghezza_player, altezza_normale))
-imgPers7Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
-imgPers7Crouch = pygame.transform.scale(imgPers7Crouch, (larghezza_player, altezza_crouch))
+imgPers7Crouch = pygame.image.load("scienzesdraiato.png").convert_alpha()
+imgPers7Crouch = pygame.transform.scale(imgPers7Crouch, (larghezza_player, altezza_crouch + 125))
 
 imgPers8 = pygame.image.load("pixelinfo.png").convert_alpha()
 imgPers8 = pygame.transform.scale(imgPers8, (larghezza_player, altezza_normale))
-imgPers8Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
-imgPers8Crouch = pygame.transform.scale(imgPers8Crouch, (larghezza_player, altezza_crouch))
+imgPers8Crouch = pygame.image.load("informaticasdraiato.png").convert_alpha()
+imgPers8Crouch = pygame.transform.scale(imgPers8Crouch, (larghezza_player, altezza_crouch + 80))
 
 clock = pygame.time.Clock()
 
