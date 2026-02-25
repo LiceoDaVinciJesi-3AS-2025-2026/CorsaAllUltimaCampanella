@@ -78,21 +78,23 @@ imgPers1 = pygame.image.load("pixelginnastica.png").convert_alpha()
 imgPers1 = pygame.transform.scale(imgPers1, (larghezza_player, altezza_normale))
 imgPers1Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
 imgPers1Crouch = pygame.transform.scale(imgPers1Crouch, (larghezza_player, altezza_crouch))
+imgPers1Jump = pygame.image.load("ginnasticasalto.png").convert_alpha()
+imgPers1Jump = pygame.transform.scale(imgPers1Jump, (larghezza_player, altezza_normale))
 
 imgPers2 = pygame.image.load("pixelstofilo.png").convert_alpha()
 imgPers2 = pygame.transform.scale(imgPers2, (larghezza_player, altezza_normale))
-imgPers2Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
-imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player, altezza_crouch))
+imgPers2Crouch = pygame.image.load("stofilosdraiato.png").convert_alpha()
+imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player, altezza_crouch + 60))
 
 imgPers3 = pygame.image.load("pixelarte.png").convert_alpha()
 imgPers3 = pygame.transform.scale(imgPers3, (larghezza_player, altezza_normale))
-imgPers3Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
-imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player, altezza_crouch))
+imgPers3Crouch = pygame.image.load("artesdraiato.png").convert_alpha()
+imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player, altezza_crouch +50))
 
 imgPers4 = pygame.image.load("pixeling.png").convert_alpha()
 imgPers4 = pygame.transform.scale(imgPers4, (larghezza_player, altezza_normale))
-imgPers4Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
-imgPers4Crouch = pygame.transform.scale(imgPers4Crouch, (larghezza_player, altezza_crouch))
+imgPers4Crouch = pygame.image.load("inglesesdraiato.png").convert_alpha()
+imgPers4Crouch = pygame.transform.scale(imgPers4Crouch, (larghezza_player, altezza_crouch + 30))
 
 imgPers5 = pygame.image.load("pixelmate.png").convert_alpha()
 imgPers5 = pygame.transform.scale(imgPers5, (larghezza_player, altezza_normale))
@@ -359,7 +361,9 @@ while running:
             al_suolo = True
             
         # --- Cambia immagine e altezza ---
-        if is_crouching:
+        if not al_suolo:
+            screen.blit(imgPers1Jump, player_rect)
+        elif is_crouching:
             screen.blit(imgPers1Crouch, player_rect)
         else:
             screen.blit(imgPers1, player_rect)
@@ -628,4 +632,6 @@ while running:
     clock.tick(60)
 
 pygame.quit()
+
+
 
