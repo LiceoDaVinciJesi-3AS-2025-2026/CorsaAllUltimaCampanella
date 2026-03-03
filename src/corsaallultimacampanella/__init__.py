@@ -33,21 +33,21 @@ imgSfondoPersonaggi = pygame.transform.scale(imgSfondoPersonaggi,(SCREEN_WIDTH,S
 
 #immagini dei prof
 imgGinnastica = pygame.image.load("pixelginnastica.png") 
-imgGinnastica = pygame.transform.scale(imgGinnastica,(370,370))
+imgGinnastica = pygame.transform.scale(imgGinnastica,(320,310))
 imgStofilo = pygame.image.load("pixelstofilo.png") 
-imgStofilo = pygame.transform.scale(imgStofilo,(350,350))
+imgStofilo = pygame.transform.scale(imgStofilo,(170,270))
 imgArte = pygame.image.load("pixelarte.png") 
-imgArte = pygame.transform.scale(imgArte,(380,380))
+imgArte = pygame.transform.scale(imgArte,(150,275))
 imgInglese = pygame.image.load("pixeling.png") 
-imgInglese = pygame.transform.scale(imgInglese,(370,370))
+imgInglese = pygame.transform.scale(imgInglese,(145,280))
 imgMatematica = pygame.image.load("pixelmate.png") 
-imgMatematica = pygame.transform.scale(imgMatematica,(350,350))
+imgMatematica = pygame.transform.scale(imgMatematica,(170,250))
 imgFisica = pygame.image.load("pixelfisica.png") 
-imgFisica = pygame.transform.scale(imgFisica,(350,350))
+imgFisica = pygame.transform.scale(imgFisica,(150,280))
 imgScienze = pygame.image.load("pixelscienze.png") 
-imgScienze = pygame.transform.scale(imgScienze,(380,380))
+imgScienze = pygame.transform.scale(imgScienze,(130,285))
 imgInformatica = pygame.image.load("pixelinfo.png") 
-imgInformatica = pygame.transform.scale(imgInformatica,(350,350))
+imgInformatica = pygame.transform.scale(imgInformatica,(170,270))
 
 #sfondo dei livelli
 imgLivello = pygame.image.load("sfondoLivello.png") 
@@ -62,13 +62,13 @@ parolaButtonStart = Normalfont.render("start", True, "black")
 player_rect = pygame.Rect(100, 0, 470, 470)
 vel_y = 0 #velocità iniziale
 gravita = 0.8
-salto = -22
+salto = -27
 al_suolo = True
 is_crouching = False
-altezza_normale = 470
+altezza_normale = 350
 altezza_crouch = 350
 ground_y = 800  # altezza del pavimento nel livello
-larghezza_player = 470
+larghezza_player = 400
 # Player Rect
 player_rect = pygame.Rect(100, 0, larghezza_player, altezza_normale)
 player_rect.bottom = ground_y
@@ -84,23 +84,23 @@ imgPers1Jump = pygame.transform.scale(imgPers1Jump, (larghezza_player, altezza_n
 imgPers2 = pygame.image.load("pixelstofilo.png").convert_alpha()
 imgPers2 = pygame.transform.scale(imgPers2, (larghezza_player, altezza_normale))
 imgPers2Crouch = pygame.image.load("stofilosdraiato.png").convert_alpha()
-imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player, altezza_crouch + 60))
+imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player, altezza_crouch))
 imgPers2Jump = pygame.image.load("stofilosalto.png").convert_alpha()
 imgPers2Jump = pygame.transform.scale(imgPers2Jump, (larghezza_player, altezza_normale))
 
 imgPers3 = pygame.image.load("pixelarte.png").convert_alpha()
 imgPers3 = pygame.transform.scale(imgPers3, (larghezza_player, altezza_normale))
 imgPers3Crouch = pygame.image.load("artesdraiato.png").convert_alpha()
-imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player, altezza_crouch +50))
+imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player, altezza_crouch))
 
 imgPers4 = pygame.image.load("pixeling.png").convert_alpha()
 imgPers4 = pygame.transform.scale(imgPers4, (larghezza_player, altezza_normale))
 imgPers4Crouch = pygame.image.load("inglesesdraiato.png").convert_alpha()
-imgPers4Crouch = pygame.transform.scale(imgPers4Crouch, (larghezza_player, altezza_crouch + 30))
+imgPers4Crouch = pygame.transform.scale(imgPers4Crouch, (larghezza_player, altezza_crouch))
 
 imgPers5 = pygame.image.load("pixelmate.png").convert_alpha()
 imgPers5 = pygame.transform.scale(imgPers5, (larghezza_player, altezza_normale))
-imgPers5Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
+imgPers5Crouch = pygame.image.load("matesdraiato.png").convert_alpha()
 imgPers5Crouch = pygame.transform.scale(imgPers5Crouch, (larghezza_player, altezza_crouch))
 imgPers5Jump = pygame.image.load("matesalto.png").convert_alpha()
 imgPers5Jump = pygame.transform.scale(imgPers5Jump, (larghezza_player, altezza_normale))
@@ -108,24 +108,24 @@ imgPers5Jump = pygame.transform.scale(imgPers5Jump, (larghezza_player, altezza_n
 imgPers6 = pygame.image.load("pixelfisica.png").convert_alpha()
 imgPers6 = pygame.transform.scale(imgPers6, (larghezza_player, altezza_normale))
 imgPers6Crouch = pygame.image.load("fisicasdraiato.png").convert_alpha()
-imgPers6Crouch = pygame.transform.scale(imgPers6Crouch, (larghezza_player, altezza_crouch + 30))
+imgPers6Crouch = pygame.transform.scale(imgPers6Crouch, (larghezza_player, altezza_crouch))
 
 imgPers7 = pygame.image.load("pixelscienze.png").convert_alpha()
 imgPers7 = pygame.transform.scale(imgPers7, (larghezza_player, altezza_normale))
 imgPers7Crouch = pygame.image.load("scienzesdraiato.png").convert_alpha()
-imgPers7Crouch = pygame.transform.scale(imgPers7Crouch, (larghezza_player, altezza_crouch + 125))
+imgPers7Crouch = pygame.transform.scale(imgPers7Crouch, (larghezza_player, altezza_crouch))
 
 imgPers8 = pygame.image.load("pixelinfo.png").convert_alpha()
 imgPers8 = pygame.transform.scale(imgPers8, (larghezza_player, altezza_normale))
 imgPers8Crouch = pygame.image.load("informaticasdraiato.png").convert_alpha()
-imgPers8Crouch = pygame.transform.scale(imgPers8Crouch, (larghezza_player, altezza_crouch + 80))
+imgPers8Crouch = pygame.transform.scale(imgPers8Crouch, (larghezza_player, altezza_crouch))
 
 # --- NEMICO ---
 enemy_width = 150
 enemy_height = 180
 enemy_rect = pygame.Rect(1200, 0, enemy_width, enemy_height)
 enemy_rect.bottom = ground_y
-enemy_speed = 5
+enemy_speed = 12
 imgEnemy = pygame.image.load("sedia.png").convert_alpha()
 imgEnemy = pygame.transform.scale(imgEnemy, (enemy_width, enemy_height))
 
@@ -255,7 +255,7 @@ while running:
         screen.blit(imgSfondoPersonaggi,(0,0))
         
         #inserisco immagine prof di ginnastica e bottone livello 1 nella schermata dei personaggi
-        screen.blit(imgGinnastica, (48, 90))
+        screen.blit(imgGinnastica, (48, 100))
         buttonGinnastica = pygame.Rect(SCREEN_WIDTH // 14.4, SCREEN_HEIGHT // 2.25, 230, 60)
         parolaButtonGinn = Normalfont.render("Livello 1", True, "black")
         
@@ -266,7 +266,7 @@ while running:
         screen.blit(parolaButtonGinn, (SCREEN_WIDTH // 12.5, SCREEN_HEIGHT // 2.3))
         
         #inserisco immagine prof di storia e filosofia e bottone livello 2 nella schermata dei personaggi
-        screen.blit(imgStofilo, (420, 100))
+        screen.blit(imgStofilo, (510, 140))
         buttonStoFilo = pygame.Rect(SCREEN_WIDTH // 3.37, SCREEN_HEIGHT // 2.25, 230, 60)
         parolaButtonStoFilo = Normalfont.render("Livello 2", True, "black")
         
@@ -277,7 +277,7 @@ while running:
         screen.blit(parolaButtonStoFilo, (SCREEN_WIDTH // 3.27, SCREEN_HEIGHT // 2.3))
         
         #inserisco immagine prof di arte e bottone livello 3 nella schermata dei personaggi
-        screen.blit(imgArte, (770, 80))
+        screen.blit(imgArte, (870, 135))
         buttonArte = pygame.Rect(SCREEN_WIDTH // 1.89, SCREEN_HEIGHT // 2.25, 230, 60)
         parolaButtonArte = Normalfont.render("Livello 3", True, "black")
         
@@ -288,7 +288,7 @@ while running:
         screen.blit(parolaButtonArte, (SCREEN_WIDTH // 1.85, SCREEN_HEIGHT // 2.3))
         
         #inserisco immagine prof di inglese e bottone livello 4 nella schermata dei personaggi
-        screen.blit(imgInglese, (1150, 80))
+        screen.blit(imgInglese, (1250, 130))
         buttonInglese = pygame.Rect(SCREEN_WIDTH // 1.32, SCREEN_HEIGHT // 2.25, 230, 60)
         parolaButtonInglese = Normalfont.render("Livello 4", True, "black")
         
@@ -299,7 +299,7 @@ while running:
         screen.blit(parolaButtonInglese, (SCREEN_WIDTH // 1.3, SCREEN_HEIGHT // 2.3))
         
         #inserisco immagine prof di matematica e bottone livello 5 nella schermata dei personaggi
-        screen.blit(imgMatematica, (48, 515))
+        screen.blit(imgMatematica, (140, 557))
         buttonMatematica = pygame.Rect(SCREEN_WIDTH // 14.4, SCREEN_HEIGHT // 1.14, 230, 60)
         parolaButtonMatematica = Normalfont.render("Livello 5", True, "black")
         
@@ -310,7 +310,7 @@ while running:
         screen.blit(parolaButtonMatematica, (SCREEN_WIDTH // 12.5, SCREEN_HEIGHT // 1.15))
         
         #inserisco immagine prof di fisica e bottone livello 6 nella schermata dei personaggi
-        screen.blit(imgFisica, (420, 510))
+        screen.blit(imgFisica, (500, 535))
         buttonFisica = pygame.Rect(SCREEN_WIDTH // 3.37, SCREEN_HEIGHT // 1.13, 230, 60)
         parolaButtonFisica = Normalfont.render("Livello 6", True, "black")
         
@@ -321,7 +321,7 @@ while running:
         screen.blit(parolaButtonFisica, (SCREEN_WIDTH // 3.27, SCREEN_HEIGHT // 1.14))
         
         #inserisco immagine prof di scienze e bottone livello 7 nella schermata dei personaggi
-        screen.blit(imgScienze, (770, 490))
+        screen.blit(imgScienze, (890, 522))
         buttonScienze = pygame.Rect(SCREEN_WIDTH // 1.89, SCREEN_HEIGHT // 1.14, 230, 60)
         parolaButtonScienze = Normalfont.render("Livello 7", True, "black")
         
@@ -332,7 +332,7 @@ while running:
         screen.blit(parolaButtonScienze, (SCREEN_WIDTH // 1.85, SCREEN_HEIGHT // 1.15))
         
         #inserisco immagine prof di informatica e bottone livello 8 nella schermata dei personaggi
-        screen.blit(imgInformatica, (1150, 530))
+        screen.blit(imgInformatica, (1240, 537))
         buttonInformatica = pygame.Rect(SCREEN_WIDTH // 1.32, SCREEN_HEIGHT // 1.14, 230, 60)
         parolaButtonInformatica = Normalfont.render("Livello 8", True, "black")
         
@@ -405,7 +405,7 @@ while running:
         
         # ---Riduce area del nemico e personaggio ---
         enemy_hitbox = enemy_rect.inflate(-1, -1)
-        player_hitbox = player_rect.inflate(-1, -1)
+        player_hitbox = player_rect.inflate(-10, -10)
         
         # --- Collisione con nemico---
         if player_rect.colliderect(enemy_hitbox):
