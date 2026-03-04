@@ -2,6 +2,7 @@ def main() -> None:
     print("Hello from corsaallultimacampanella!")
     
 import pygame
+import random  
 
 pygame.init()
 
@@ -68,7 +69,7 @@ salto = -27
 al_suolo = True
 is_crouching = False
 altezza_normale = 350
-altezza_crouch = 350
+altezza_crouch = 330
 ground_y = 800  # altezza del pavimento nel livello
 larghezza_player = 400
 # Player Rect
@@ -86,22 +87,22 @@ imgPers1Jump = pygame.transform.scale(imgPers1Jump, (larghezza_player, altezza_n
 imgPers2 = pygame.image.load("pixelstofilo.png").convert_alpha()
 imgPers2 = pygame.transform.scale(imgPers2, (larghezza_player - 180, altezza_normale - 20))
 imgPers2Crouch = pygame.image.load("stofilosdraiato.png").convert_alpha()
-imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player, altezza_crouch - 45))
+imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player + 80, altezza_crouch - 150))
 imgPers2Jump = pygame.image.load("stofilosalto.png").convert_alpha()
 imgPers2Jump = pygame.transform.scale(imgPers2Jump, (larghezza_player - 120, altezza_normale - 90))
 
 imgPers3 = pygame.image.load("pixelarte.png").convert_alpha()
-imgPers3 = pygame.transform.scale(imgPers3, (larghezza_player - 180, altezza_normale - 20))
+imgPers3 = pygame.transform.scale(imgPers3, (larghezza_player - 200, altezza_normale - 20))
 imgPers3Crouch = pygame.image.load("artesdraiato.png").convert_alpha()
-imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player, altezza_crouch - 45))
-imgPers3Jump = pygame.image.load("stofilosalto.png").convert_alpha()
+imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player + 80, altezza_crouch - 90))
+imgPers3Jump = pygame.image.load("artesalto.png").convert_alpha()
 imgPers3Jump = pygame.transform.scale(imgPers3Jump, (larghezza_player - 120, altezza_normale - 90))
 
 imgPers4 = pygame.image.load("pixeling.png").convert_alpha()
 imgPers4 = pygame.transform.scale(imgPers4, (larghezza_player - 250, altezza_normale - 25))
 imgPers4Crouch = pygame.image.load("inglesesdraiato.png").convert_alpha()
-imgPers4Crouch = pygame.transform.scale(imgPers4Crouch, (larghezza_player, altezza_crouch - 45))
-imgPers4Jump = pygame.image.load("stofilosalto.png").convert_alpha()
+imgPers4Crouch = pygame.transform.scale(imgPers4Crouch, (larghezza_player - 15, altezza_crouch - 80))
+imgPers4Jump = pygame.image.load("inglesesalto.png").convert_alpha()
 imgPers4Jump = pygame.transform.scale(imgPers4Jump, (larghezza_player - 30, altezza_normale - 90))
 
 imgPers5 = pygame.image.load("pixelmate.png").convert_alpha()
@@ -112,36 +113,45 @@ imgPers5Jump = pygame.image.load("matesalto.png").convert_alpha()
 imgPers5Jump = pygame.transform.scale(imgPers5Jump, (larghezza_player - 30, altezza_normale - 90))
 
 imgPers6 = pygame.image.load("pixelfisica.png").convert_alpha()
-imgPers6 = pygame.transform.scale(imgPers6, (larghezza_player, altezza_normale))
+imgPers6 = pygame.transform.scale(imgPers6, (larghezza_player - 200, altezza_normale + 20))
 imgPers6Crouch = pygame.image.load("fisicasdraiato.png").convert_alpha()
-imgPers6Crouch = pygame.transform.scale(imgPers6Crouch, (larghezza_player, altezza_crouch))
+imgPers6Crouch = pygame.transform.scale(imgPers6Crouch, (larghezza_player - 10, altezza_crouch - 65))
 imgPers6Jump = pygame.image.load("fisicasalto.png").convert_alpha()
 imgPers6Jump = pygame.transform.scale(imgPers6Jump, (larghezza_player - 30, altezza_normale - 90))
 
 
 imgPers7 = pygame.image.load("pixelscienze.png").convert_alpha()
-imgPers7 = pygame.transform.scale(imgPers7, (larghezza_player, altezza_normale))
+imgPers7 = pygame.transform.scale(imgPers7, (larghezza_player - 230, altezza_normale))
 imgPers7Crouch = pygame.image.load("scienzesdraiato.png").convert_alpha()
-imgPers7Crouch = pygame.transform.scale(imgPers7Crouch, (larghezza_player, altezza_crouch))
+imgPers7Crouch = pygame.transform.scale(imgPers7Crouch, (larghezza_player + 16, altezza_crouch - 35))
 imgPers7Jump = pygame.image.load("scienzesalto.png").convert_alpha()
 imgPers7Jump = pygame.transform.scale(imgPers7Jump, (larghezza_player - 30, altezza_normale - 90))
 
 
 imgPers8 = pygame.image.load("pixelinfo.png").convert_alpha()
-imgPers8 = pygame.transform.scale(imgPers8, (larghezza_player, altezza_normale))
+imgPers8 = pygame.transform.scale(imgPers8, (larghezza_player - 200, altezza_normale - 10))
 imgPers8Crouch = pygame.image.load("informaticasdraiato.png").convert_alpha()
-imgPers8Crouch = pygame.transform.scale(imgPers8Crouch, (larghezza_player, altezza_crouch))
+imgPers8Crouch = pygame.transform.scale(imgPers8Crouch, (larghezza_player + 15, altezza_crouch - 55))
 imgPers8Jump = pygame.image.load("infosalto.png").convert_alpha()
-imgPers8Jump = pygame.transform.scale(imgPers8Jump, (larghezza_player - 30, altezza_normale - 90))
+imgPers8Jump = pygame.transform.scale(imgPers8Jump, (larghezza_player - 30, altezza_normale - 70))
 
-# --- NEMICO ---
-enemy_width = 150
-enemy_height = 180
-enemy_rect = pygame.Rect(1200, 0, enemy_width, enemy_height)
-enemy_rect.bottom = ground_y
-enemy_speed = 12
-imgEnemy = pygame.image.load("sedia.png").convert_alpha()
-imgEnemy = pygame.transform.scale(imgEnemy, (enemy_width, enemy_height))
+# --- NEMICO SEDIA ---
+sedia_width = 160
+sedia_height = 190
+sedia_rect = pygame.Rect(1200, 0, sedia_width, sedia_height)
+sedia_rect.bottom = ground_y
+sedia_speed = 12
+imgSedia = pygame.image.load("sedia.png").convert_alpha()
+imgSedia = pygame.transform.scale(imgSedia, (sedia_width, sedia_height))
+
+# --- NEMICO BANCO ---
+banco_width = 380
+banco_height = 200
+banco_rect = pygame.Rect(1200, 0, banco_width, banco_height)
+banco_rect.bottom = ground_y - 50  # leggermente più alto del terreno
+banco_speed = 12
+imgBanco = pygame.image.load("banco.png").convert_alpha()
+imgBanco = pygame.transform.scale(imgBanco, (banco_width, banco_height))
 
 clock = pygame.time.Clock()
 
@@ -160,18 +170,26 @@ Livello6 = False
 Livello7 = False 
 Livello8 = False
 
-# --- FUNZIONE RESET QUANDO PERDI ---
+# --- INIZIALIZZAZIONE LIVELLI ---
+livello_corrente = None  # es: "Livello1", "Livello2", ...
+fineGioco = False
+
+# --- FUNZIONE RESET ---
 def reset_gioco():
-    global player_rect, enemy_rect, vel_y, al_suolo
-    
+    global player_rect, sedia_rect, banco_rect, vel_y, al_suolo, banco_active, banco_start_time
+    # Reset giocatore
     player_rect.x = 100
     player_rect.bottom = ground_y
-    
-    enemy_rect.left = SCREEN_WIDTH
-    
     vel_y = 0
     al_suolo = True
 
+    # Reset nemici
+    sedia_rect.left = SCREEN_WIDTH
+    banco_rect.left = SCREEN_WIDTH + 500  # banca parte più avanti della sedia
+
+    # Reset banco attivo
+    banco_active = False
+    banco_start_time = pygame.time.get_ticks()
 
 while running:
     mPos = pygame.mouse.get_pos() 
@@ -276,9 +294,7 @@ while running:
             buttonColorS = "dark grey"
         buttonS = pygame.draw.rect(screen,buttonColorS,buttonStart)
         screen.blit(parolaButtonStart, (SCREEN_WIDTH // 2.16, SCREEN_HEIGHT // 1.475))
-        
-        
-        
+   
     #se ci troviamo nel gioco
     elif personaggi:
         screen.blit(imgSfondoPersonaggi,(0,0))
@@ -375,7 +391,6 @@ while running:
             if event.key == pygame.K_RETURN:
                 home = True
                 
-        
     elif informazioni:
         screen.fill("red")
 
@@ -387,13 +402,7 @@ while running:
     elif Livello1:
         screen.blit(imgLivello, (0, 0))
         keys = pygame.key.get_pressed()
-        
-        # --- Movimento nemico ---
-        enemy_rect.x -= enemy_speed
-        # Se esce dallo schermo ricompare a destra
-        if enemy_rect.right < 0:
-            enemy_rect.left = SCREEN_WIDTH
-        
+
         # -------- SALTO --------
         if keys[pygame.K_SPACE] and al_suolo:
             vel_y = salto
@@ -429,23 +438,69 @@ while running:
         else:
             screen.blit(imgPers1, player_rect)
         
-        # --- Disegno nemico ---
-        screen.blit(imgEnemy, enemy_rect)
+        # --- Movimento sedia ---
+        sedia_rect.x -= sedia_speed
+        # Se esce dallo schermo ricompare a destra
+        if sedia_rect.right < 0:
+            sedia_rect.left = SCREEN_WIDTH
+            
+        # --- Movimento banco ---
+        if 'banco_active' not in globals():
+            banco_active = False
+            banco_start_time = pygame.time.get_ticks()
+
+        if not banco_active:
+            # attiva il banco dopo 3 secondi
+            if pygame.time.get_ticks() - banco_start_time > 3000:
+                banco_active = True
+                # distanza minima casuale tra sedia e banco
+                distanza_min = 400
+                distanza_max = 700
+                banco_rect.left = sedia_rect.right + random.randint(distanza_min, distanza_max)
+                # evitare che parta fuori schermo
+                if banco_rect.left > SCREEN_WIDTH:
+                    banco_rect.left = SCREEN_WIDTH
+        else:
+            # il banco si muove solo se attivo
+            banco_rect.x -= sedia_speed
+            # se esce dallo schermo, ricomincia dopo la sedia
+            if banco_rect.right < 0:
+                banco_active = False
+                banco_start_time = pygame.time.get_ticks()
         
-        # ---Riduce area del nemico e personaggio ---
-        enemy_hitbox = enemy_rect.inflate(-100, -100)
+        # --- Disegno sedia ---
+        screen.blit(imgSedia, sedia_rect)
+        # --- Disegno banco ---
+        screen.blit(imgBanco, banco_rect)
+        
+        # ---Riduce area dei nemici e personaggio ---
+        sedia_hitbox = sedia_rect.inflate(-100, -100)
+        banco_hitbox = banco_rect.inflate(-50, -50)  # hitbox più precisa
         player_hitbox = player_rect.inflate(-100, -100)
         
-        # --- Collisione con nemico---
-        if player_rect.colliderect(enemy_hitbox):
-            fineGioco = True 
+        # --- Collisione con sedia---
+        if player_hitbox.colliderect(sedia_hitbox):
+            fineGioco = True
         
+        # Collisione banco: perde solo se NON striscia
+        if player_hitbox.colliderect(banco_hitbox) and not is_crouching:
+            fineGioco = True
+            
         if fineGioco:
-            screen.blit(imgHaiPerso, (0, 0)) 
+            screen.blit(imgHaiPerso, (0, 0))
+            # Resetta le posizioni dei nemici
+            reset_gioco()
+        
             
     elif Livello2:
         screen.blit(imgLivello, (0, 0))
         keys = pygame.key.get_pressed()
+        
+        # --- Movimento nemico ---
+        sedia_rect.x -= sedia_speed
+        # Se esce dallo schermo ricompare a destra
+        if sedia_rect.right < 0:
+            sedia_rect.left = SCREEN_WIDTH
         
         # -------- SALTO --------
         if keys[pygame.K_SPACE] and al_suolo:
@@ -481,10 +536,30 @@ while running:
             screen.blit(imgPers2Crouch, player_rect)
         else:
             screen.blit(imgPers2, player_rect)
+            
+       # --- Disegno nemico ---
+        screen.blit(imgSedia, sedia_rect)
+        
+        # ---Riduce area del nemico e personaggio ---
+        sedia_hitbox = sedia_rect.inflate(-100, -100)
+        player_hitbox = player_rect.inflate(-100, -100)
+        
+        # --- Collisione con nemico---
+        if player_hitbox.colliderect(sedia_hitbox):
+            fineGioco = True
+            
+        if fineGioco:
+            screen.blit(imgHaiPerso, (0, 0))   
         
     elif Livello3:
         screen.blit(imgLivello, (0, 0))
         keys = pygame.key.get_pressed()
+        
+        # --- Movimento nemico ---
+        sedia_rect.x -= sedia_speed
+        # Se esce dallo schermo ricompare a destra
+        if sedia_rect.right < 0:
+            sedia_rect.left = SCREEN_WIDTH
         
         # -------- SALTO --------
         if keys[pygame.K_SPACE] and al_suolo:
@@ -520,10 +595,30 @@ while running:
             screen.blit(imgPers3Crouch, player_rect)
         else:
             screen.blit(imgPers3, player_rect)
+        
+        # --- Disegno nemico ---
+        screen.blit(imgSedia, sedia_rect)
+        
+        # ---Riduce area del nemico e personaggio ---
+        sedia_hitbox = sedia_rect.inflate(-100, -100)
+        player_hitbox = player_rect.inflate(-100, -100)
+        
+        # --- Collisione con nemico---
+        if player_hitbox.colliderect(sedia_hitbox):
+            fineGioco = True
+            
+        if fineGioco:
+            screen.blit(imgHaiPerso, (0, 0))   
             
     elif Livello4:
         screen.blit(imgLivello, (0, 0))
         keys = pygame.key.get_pressed()
+        
+        # --- Movimento nemico ---
+        sedia_rect.x -= sedia_speed
+        # Se esce dallo schermo ricompare a destra
+        if sedia_rect.right < 0:
+            sedia_rect.left = SCREEN_WIDTH
         
         # -------- SALTO --------
         if keys[pygame.K_SPACE] and al_suolo:
@@ -559,10 +654,30 @@ while running:
             screen.blit(imgPers4Crouch, player_rect)
         else:
             screen.blit(imgPers4, player_rect)
+        
+        # --- Disegno nemico ---
+        screen.blit(imgSedia, sedia_rect)
+        
+        # ---Riduce area del nemico e personaggio ---
+        sedia_hitbox = sedia_rect.inflate(-100, -100)
+        player_hitbox = player_rect.inflate(-100, -100)
+        
+        # --- Collisione con nemico---
+        if player_hitbox.colliderect(sedia_hitbox):
+            fineGioco = True
+            
+        if fineGioco:
+            screen.blit(imgHaiPerso, (0, 0))   
             
     elif Livello5:
         screen.blit(imgLivello, (0, 0))
         keys = pygame.key.get_pressed()
+        
+        # --- Movimento nemico ---
+        sedia_rect.x -= sedia_speed
+        # Se esce dallo schermo ricompare a destra
+        if sedia_rect.right < 0:
+            sedia_rect.left = SCREEN_WIDTH
         
         # -------- SALTO --------
         if keys[pygame.K_SPACE] and al_suolo:
@@ -598,10 +713,30 @@ while running:
             screen.blit(imgPers5Crouch, player_rect)
         else:
             screen.blit(imgPers5, player_rect)
+        
+        # --- Disegno nemico ---
+        screen.blit(imgSedia, sedia_rect)
+        
+        # ---Riduce area del nemico e personaggio ---
+        sedia_hitbox = sedia_rect.inflate(-100, -100)
+        player_hitbox = player_rect.inflate(-100, -100)
+        
+        # --- Collisione con nemico---
+        if player_hitbox.colliderect(sedia_hitbox):
+            fineGioco = True
+            
+        if fineGioco:
+            screen.blit(imgHaiPerso, (0, 0))    
     
     elif Livello6:
         screen.blit(imgLivello, (0, 0))
         keys = pygame.key.get_pressed()
+        
+        # --- Movimento nemico ---
+        sedia_rect.x -= sedia_speed
+        # Se esce dallo schermo ricompare a destra
+        if sedia_rect.right < 0:
+            sedia_rect.left = SCREEN_WIDTH
         
         # -------- SALTO --------
         if keys[pygame.K_SPACE] and al_suolo:
@@ -637,10 +772,30 @@ while running:
             screen.blit(imgPers6Crouch, player_rect)
         else:
             screen.blit(imgPers6, player_rect)
+        
+        # --- Disegno nemico ---
+        screen.blit(imgSedia, sedia_rect)
+        
+        # ---Riduce area del nemico e personaggio ---
+        sedia_hitbox = sedia_rect.inflate(-100, -100)
+        player_hitbox = player_rect.inflate(-100, -100)
+        
+        # --- Collisione con nemico---
+        if player_hitbox.colliderect(sedia_hitbox):
+            fineGioco = True
+            
+        if fineGioco:
+            screen.blit(imgHaiPerso, (0, 0))    
             
     elif Livello7:
         screen.blit(imgLivello, (0, 0))
         keys = pygame.key.get_pressed()
+        
+        # --- Movimento nemico ---
+        sedia_rect.x -= sedia_speed
+        # Se esce dallo schermo ricompare a destra
+        if sedia_rect.right < 0:
+            sedia_rect.left = SCREEN_WIDTH
         
         # -------- SALTO --------
         if keys[pygame.K_SPACE] and al_suolo:
@@ -677,9 +832,29 @@ while running:
         else:
             screen.blit(imgPers7, player_rect)
             
+        # --- Disegno nemico ---
+        screen.blit(imgSedia, sedia_rect)
+        
+        # ---Riduce area del nemico e personaggio ---
+        sedia_hitbox = sedia_rect.inflate(-100, -100)
+        player_hitbox = player_rect.inflate(-100, -100)
+        
+        # --- Collisione con nemico---
+        if player_hitbox.colliderect(sedia_hitbox):
+            fineGioco = True
+            
+        if fineGioco:
+            screen.blit(imgHaiPerso, (0, 0))    
+            
     elif Livello8:
         screen.blit(imgLivello, (0, 0))
         keys = pygame.key.get_pressed()
+        
+        # --- Movimento nemico ---
+        sedia_rect.x -= sedia_speed
+        # Se esce dallo schermo ricompare a destra
+        if sedia_rect.right < 0:
+            sedia_rect.left = SCREEN_WIDTH
         
         # -------- SALTO --------
         if keys[pygame.K_SPACE] and al_suolo:
@@ -715,6 +890,20 @@ while running:
             screen.blit(imgPers8Crouch, player_rect)
         else:
             screen.blit(imgPers8, player_rect)
+        
+        # --- Disegno nemico ---
+        screen.blit(imgSedia, sedia_rect)
+        
+        # ---Riduce area del nemico e personaggio ---
+        sedia_hitbox = sedia_rect.inflate(-100, -100)
+        player_hitbox = player_rect.inflate(-100, -100)
+        
+        # --- Collisione con nemico---
+        if player_hitbox.colliderect(sedia_hitbox):
+            fineGioco = True
+            
+        if fineGioco:
+            screen.blit(imgHaiPerso, (0, 0))
                
 
     pygame.display.flip()
