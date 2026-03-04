@@ -52,6 +52,8 @@ imgInformatica = pygame.transform.scale(imgInformatica,(170,270))
 #sfondo dei livelli
 imgLivello = pygame.image.load("sfondoLivello.png") 
 imgLivello = pygame.transform.scale(imgLivello, (SCREEN_WIDTH, SCREEN_HEIGHT))
+imgHaiPerso = pygame.image.load("sfondoHaiPerso.png")
+imgHaiPerso = pygame.transform.scale(imgHaiPerso, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 #font delle parole nei bottoni e parole 
 Normalfont = pygame.font.SysFont('Impact', 60)
@@ -77,48 +79,60 @@ player_rect.bottom = ground_y
 imgPers1 = pygame.image.load("pixelginnastica.png").convert_alpha()
 imgPers1 = pygame.transform.scale(imgPers1, (larghezza_player, altezza_normale))
 imgPers1Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
-imgPers1Crouch = pygame.transform.scale(imgPers1Crouch, (larghezza_player, altezza_crouch))
+imgPers1Crouch = pygame.transform.scale(imgPers1Crouch, (larghezza_player, altezza_crouch + 45))
 imgPers1Jump = pygame.image.load("ginnasticasalto.png").convert_alpha()
 imgPers1Jump = pygame.transform.scale(imgPers1Jump, (larghezza_player, altezza_normale))
 
 imgPers2 = pygame.image.load("pixelstofilo.png").convert_alpha()
-imgPers2 = pygame.transform.scale(imgPers2, (larghezza_player, altezza_normale))
+imgPers2 = pygame.transform.scale(imgPers2, (larghezza_player - 180, altezza_normale - 20))
 imgPers2Crouch = pygame.image.load("stofilosdraiato.png").convert_alpha()
-imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player, altezza_crouch))
+imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player, altezza_crouch - 45))
 imgPers2Jump = pygame.image.load("stofilosalto.png").convert_alpha()
-imgPers2Jump = pygame.transform.scale(imgPers2Jump, (larghezza_player, altezza_normale))
+imgPers2Jump = pygame.transform.scale(imgPers2Jump, (larghezza_player - 120, altezza_normale - 90))
 
 imgPers3 = pygame.image.load("pixelarte.png").convert_alpha()
-imgPers3 = pygame.transform.scale(imgPers3, (larghezza_player, altezza_normale))
+imgPers3 = pygame.transform.scale(imgPers3, (larghezza_player - 180, altezza_normale - 20))
 imgPers3Crouch = pygame.image.load("artesdraiato.png").convert_alpha()
-imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player, altezza_crouch))
+imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player, altezza_crouch - 45))
+imgPers3Jump = pygame.image.load("stofilosalto.png").convert_alpha()
+imgPers3Jump = pygame.transform.scale(imgPers3Jump, (larghezza_player - 120, altezza_normale - 90))
 
 imgPers4 = pygame.image.load("pixeling.png").convert_alpha()
-imgPers4 = pygame.transform.scale(imgPers4, (larghezza_player, altezza_normale))
+imgPers4 = pygame.transform.scale(imgPers4, (larghezza_player - 250, altezza_normale - 25))
 imgPers4Crouch = pygame.image.load("inglesesdraiato.png").convert_alpha()
-imgPers4Crouch = pygame.transform.scale(imgPers4Crouch, (larghezza_player, altezza_crouch))
+imgPers4Crouch = pygame.transform.scale(imgPers4Crouch, (larghezza_player, altezza_crouch - 45))
+imgPers4Jump = pygame.image.load("stofilosalto.png").convert_alpha()
+imgPers4Jump = pygame.transform.scale(imgPers4Jump, (larghezza_player - 30, altezza_normale - 90))
 
 imgPers5 = pygame.image.load("pixelmate.png").convert_alpha()
-imgPers5 = pygame.transform.scale(imgPers5, (larghezza_player, altezza_normale))
+imgPers5 = pygame.transform.scale(imgPers5, (larghezza_player - 200, altezza_normale - 10))
 imgPers5Crouch = pygame.image.load("matesdraiato.png").convert_alpha()
-imgPers5Crouch = pygame.transform.scale(imgPers5Crouch, (larghezza_player, altezza_crouch))
+imgPers5Crouch = pygame.transform.scale(imgPers5Crouch, (larghezza_player - 5, altezza_crouch + 75))
 imgPers5Jump = pygame.image.load("matesalto.png").convert_alpha()
-imgPers5Jump = pygame.transform.scale(imgPers5Jump, (larghezza_player, altezza_normale))
+imgPers5Jump = pygame.transform.scale(imgPers5Jump, (larghezza_player - 30, altezza_normale - 90))
 
 imgPers6 = pygame.image.load("pixelfisica.png").convert_alpha()
 imgPers6 = pygame.transform.scale(imgPers6, (larghezza_player, altezza_normale))
 imgPers6Crouch = pygame.image.load("fisicasdraiato.png").convert_alpha()
 imgPers6Crouch = pygame.transform.scale(imgPers6Crouch, (larghezza_player, altezza_crouch))
+imgPers6Jump = pygame.image.load("fisicasalto.png").convert_alpha()
+imgPers6Jump = pygame.transform.scale(imgPers6Jump, (larghezza_player - 30, altezza_normale - 90))
+
 
 imgPers7 = pygame.image.load("pixelscienze.png").convert_alpha()
 imgPers7 = pygame.transform.scale(imgPers7, (larghezza_player, altezza_normale))
 imgPers7Crouch = pygame.image.load("scienzesdraiato.png").convert_alpha()
 imgPers7Crouch = pygame.transform.scale(imgPers7Crouch, (larghezza_player, altezza_crouch))
+imgPers7Jump = pygame.image.load("scienzesalto.png").convert_alpha()
+imgPers7Jump = pygame.transform.scale(imgPers7Jump, (larghezza_player - 30, altezza_normale - 90))
+
 
 imgPers8 = pygame.image.load("pixelinfo.png").convert_alpha()
 imgPers8 = pygame.transform.scale(imgPers8, (larghezza_player, altezza_normale))
 imgPers8Crouch = pygame.image.load("informaticasdraiato.png").convert_alpha()
 imgPers8Crouch = pygame.transform.scale(imgPers8Crouch, (larghezza_player, altezza_crouch))
+imgPers8Jump = pygame.image.load("infosalto.png").convert_alpha()
+imgPers8Jump = pygame.transform.scale(imgPers8Jump, (larghezza_player - 30, altezza_normale - 90))
 
 # --- NEMICO ---
 enemy_width = 150
@@ -135,7 +149,8 @@ running = True
 home = True
 informazioni = False
 personaggi = False 
-gioco = False 
+gioco = False
+fineGioco = False 
 Livello1 = False 
 Livello2 = False 
 Livello3 = False 
@@ -169,7 +184,21 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
-                            
+                
+        if fineGioco and event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    fineGioco = False
+                    Livello1 = False
+                    Livello2 = False
+                    Livello3 = False
+                    Livello4 = False
+                    Livello5 = False
+                    Livello6 = False
+                    Livello7 = False
+                    Livello8 = False
+                    home = True
+                    personaggi = True
+                    
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1: # Click sinistro 
                 # 1. Se sono in Home e clicco Start -> vado a Personaggi
@@ -404,15 +433,15 @@ while running:
         screen.blit(imgEnemy, enemy_rect)
         
         # ---Riduce area del nemico e personaggio ---
-        enemy_hitbox = enemy_rect.inflate(-1, -1)
-        player_hitbox = player_rect.inflate(-10, -10)
+        enemy_hitbox = enemy_rect.inflate(-100, -100)
+        player_hitbox = player_rect.inflate(-100, -100)
         
         # --- Collisione con nemico---
         if player_rect.colliderect(enemy_hitbox):
-            print("HAI PERSO!")
-            reset_gioco()
-            Livello1 = False
-            personaggi = True
+            fineGioco = True 
+        
+        if fineGioco:
+            screen.blit(imgHaiPerso, (0, 0)) 
             
     elif Livello2:
         screen.blit(imgLivello, (0, 0))
@@ -485,7 +514,9 @@ while running:
             al_suolo = True
             
         # --- Cambia immagine e altezza ---
-        if is_crouching:
+        if not al_suolo:
+            screen.blit(imgPers3Jump, player_rect)
+        elif is_crouching:
             screen.blit(imgPers3Crouch, player_rect)
         else:
             screen.blit(imgPers3, player_rect)
@@ -522,7 +553,9 @@ while running:
             al_suolo = True
             
         # --- Cambia immagine e altezza ---
-        if is_crouching:
+        if not al_suolo:
+            screen.blit(imgPers4Jump, player_rect)
+        elif is_crouching:
             screen.blit(imgPers4Crouch, player_rect)
         else:
             screen.blit(imgPers4, player_rect)
@@ -598,7 +631,9 @@ while running:
             al_suolo = True
             
         # --- Cambia immagine e altezza ---
-        if is_crouching:
+        if not al_suolo:
+            screen.blit(imgPers6Jump, player_rect)
+        elif is_crouching:
             screen.blit(imgPers6Crouch, player_rect)
         else:
             screen.blit(imgPers6, player_rect)
@@ -635,7 +670,9 @@ while running:
             al_suolo = True
             
         # --- Cambia immagine e altezza ---
-        if is_crouching:
+        if not al_suolo:
+            screen.blit(imgPers7Jump, player_rect)
+        elif is_crouching:
             screen.blit(imgPers7Crouch, player_rect)
         else:
             screen.blit(imgPers7, player_rect)
@@ -672,7 +709,9 @@ while running:
             al_suolo = True
             
         # --- Cambia immagine e altezza ---
-        if is_crouching:
+        if not al_suolo:
+            screen.blit(imgPers8Jump, player_rect)
+        elif is_crouching:
             screen.blit(imgPers8Crouch, player_rect)
         else:
             screen.blit(imgPers8, player_rect)
