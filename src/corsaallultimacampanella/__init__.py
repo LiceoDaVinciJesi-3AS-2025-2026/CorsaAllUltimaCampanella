@@ -55,6 +55,12 @@ imgLivello = pygame.image.load("sfondoLivello.png")
 imgLivello = pygame.transform.scale(imgLivello, (SCREEN_WIDTH, SCREEN_HEIGHT))
 imgHaiPerso = pygame.image.load("sfondoHaiPerso.png")
 imgHaiPerso = pygame.transform.scale(imgHaiPerso, (SCREEN_WIDTH, SCREEN_HEIGHT))
+imgHaiVinto1 = pygame.image.load("sfondoHaiVinto100.png")
+imgHaiVinto1 = pygame.transform.scale(imgHaiVinto1, (SCREEN_WIDTH, SCREEN_HEIGHT))
+imgHaiVinto2 = pygame.image.load("sfondoHaiVinto150.png")
+imgHaiVinto2 = pygame.transform.scale(imgHaiVinto2, (SCREEN_WIDTH, SCREEN_HEIGHT))
+imgHaiVinto3 = pygame.image.load("sfondoHaiVinto200.png")
+imgHaiVinto3 = pygame.transform.scale(imgHaiVinto3, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 #font delle parole nei bottoni e parole 
 Normalfont = pygame.font.SysFont('Impact', 60)
@@ -65,7 +71,7 @@ parolaButtonStart = Normalfont.render("start", True, "black")
 player_rect = pygame.Rect(100, 0, 470, 470)
 vel_y = 0 #velocità iniziale
 gravita = 0.8
-salto = -27
+salto = -25
 al_suolo = True
 is_crouching = False
 altezza_normale = 350
@@ -80,21 +86,21 @@ player_rect.bottom = ground_y
 imgPers1 = pygame.image.load("pixelginnastica.png").convert_alpha()
 imgPers1 = pygame.transform.scale(imgPers1, (larghezza_player, altezza_normale))
 imgPers1Crouch = pygame.image.load("ginnasticasdraiato.png").convert_alpha()
-imgPers1Crouch = pygame.transform.scale(imgPers1Crouch, (larghezza_player, altezza_crouch + 45))
+imgPers1Crouch = pygame.transform.scale(imgPers1Crouch, (larghezza_player - 45, altezza_crouch - 80))
 imgPers1Jump = pygame.image.load("ginnasticasalto.png").convert_alpha()
 imgPers1Jump = pygame.transform.scale(imgPers1Jump, (larghezza_player, altezza_normale))
 
 imgPers2 = pygame.image.load("pixelstofilo.png").convert_alpha()
-imgPers2 = pygame.transform.scale(imgPers2, (larghezza_player - 180, altezza_normale - 20))
+imgPers2 = pygame.transform.scale(imgPers2, (larghezza_player - 180, altezza_normale - 10))
 imgPers2Crouch = pygame.image.load("stofilosdraiato.png").convert_alpha()
-imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player + 80, altezza_crouch - 150))
+imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player, altezza_crouch - 175))
 imgPers2Jump = pygame.image.load("stofilosalto.png").convert_alpha()
 imgPers2Jump = pygame.transform.scale(imgPers2Jump, (larghezza_player - 120, altezza_normale - 90))
 
 imgPers3 = pygame.image.load("pixelarte.png").convert_alpha()
 imgPers3 = pygame.transform.scale(imgPers3, (larghezza_player - 200, altezza_normale - 20))
 imgPers3Crouch = pygame.image.load("artesdraiato.png").convert_alpha()
-imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player + 80, altezza_crouch - 90))
+imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player + 40, altezza_crouch - 175))
 imgPers3Jump = pygame.image.load("artesalto.png").convert_alpha()
 imgPers3Jump = pygame.transform.scale(imgPers3Jump, (larghezza_player - 120, altezza_normale - 90))
 
@@ -140,7 +146,8 @@ sedia_width = 160
 sedia_height = 190
 sedia_rect = pygame.Rect(1200, 0, sedia_width, sedia_height)
 sedia_rect.bottom = ground_y
-sedia_speed = 12
+sedia_rect.left = 1200
+sedia_speed = 15
 imgSedia = pygame.image.load("sedia.png").convert_alpha()
 imgSedia = pygame.transform.scale(imgSedia, (sedia_width, sedia_height))
 
@@ -148,15 +155,32 @@ imgSedia = pygame.transform.scale(imgSedia, (sedia_width, sedia_height))
 banco_width = 380
 banco_height = 200
 banco_rect = pygame.Rect(1200, 0, banco_width, banco_height)
-banco_rect.bottom = ground_y - 50  # leggermente più alto del terreno
-banco_speed = 12
+banco_rect.bottom = ground_y + 15 # leggermente più alto del terreno
+banco_rect.left = 1200 + 1000 
+banco_speed = 15
+banco_active = False
+banco_start_time = pygame.time.get_ticks()
 imgBanco = pygame.image.load("banco.png").convert_alpha()
 imgBanco = pygame.transform.scale(imgBanco, (banco_width, banco_height))
+
+# --- Punteggio ---
+punteggio = 0
+font_punti = pygame.font.SysFont('Impact', 50)
+
+sedia_passata = False
+banco_passato = False
+
+campanella_attiva = False
+campanella_rect = pygame.Rect(1200, ground_y - 200, 120, 120)
+
+imgCampanella = pygame.image.load("campanella.png").convert_alpha()
+imgCampanella = pygame.transform.scale(imgCampanella,(200,200))
 
 clock = pygame.time.Clock()
 
 running = True
 home = True
+vittoria = False
 informazioni = False
 personaggi = False 
 gioco = False
@@ -176,7 +200,9 @@ fineGioco = False
 
 # --- FUNZIONE RESET ---
 def reset_gioco():
-    global player_rect, sedia_rect, banco_rect, vel_y, al_suolo, banco_active, banco_start_time
+    global player_rect, sedia_rect, banco_rect, vel_y, al_suolo
+    global banco_active, banco_start_time
+    
     # Reset giocatore
     player_rect.x = 100
     player_rect.bottom = ground_y
@@ -185,7 +211,7 @@ def reset_gioco():
 
     # Reset nemici
     sedia_rect.left = SCREEN_WIDTH
-    banco_rect.left = SCREEN_WIDTH + 500  # banca parte più avanti della sedia
+    banco_rect.left = sedia_rect.right + random.randint(400,700)  # banca parte più avanti della sedia
 
     # Reset banco attivo
     banco_active = False
@@ -204,18 +230,34 @@ while running:
                 running = False
                 
         if fineGioco and event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    fineGioco = False
-                    Livello1 = False
-                    Livello2 = False
-                    Livello3 = False
-                    Livello4 = False
-                    Livello5 = False
-                    Livello6 = False
-                    Livello7 = False
-                    Livello8 = False
-                    home = True
-                    personaggi = True
+            if event.key == pygame.K_RETURN:
+                reset_gioco()
+                fineGioco = False
+                Livello1 = False
+                Livello2 = False
+                Livello3 = False
+                Livello4 = False
+                Livello5 = False
+                Livello6 = False
+                Livello7 = False
+                Livello8 = False
+                home = True
+                personaggi = True
+                
+        if vittoria and event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                reset_gioco()
+                fineGioco = False
+                Livello1 = False
+                Livello2 = False
+                Livello3 = False
+                Livello4 = False
+                Livello5 = False
+                Livello6 = False
+                Livello7 = False
+                Livello8 = False
+                home = True
+                personaggi = True
                     
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1: # Click sinistro 
@@ -438,69 +480,61 @@ while running:
         else:
             screen.blit(imgPers1, player_rect)
         
-        # --- Movimento sedia ---
-        sedia_rect.x -= sedia_speed
-        # Se esce dallo schermo ricompare a destra
-        if sedia_rect.right < 0:
-            sedia_rect.left = SCREEN_WIDTH
+        # --- Movimento sedia solo se la campanella NON è attiva ---
+        if not campanella_attiva:
+            sedia_rect.x -= sedia_speed
+            # Se esce dallo schermo ricompare a destra
+            if sedia_rect.right < 0:
+                sedia_rect.left = SCREEN_WIDTH
             
-        # --- Movimento banco ---
-        if 'banco_active' not in globals():
-            banco_active = False
-            banco_start_time = pygame.time.get_ticks()
+        # quando la sedia passa il player
+        if sedia_rect.right < player_rect.left and not sedia_passata:
+            punteggio += 10
+            sedia_passata = True
 
-        if not banco_active:
-            # attiva il banco dopo 3 secondi
-            if pygame.time.get_ticks() - banco_start_time > 3000:
-                banco_active = True
-                # distanza minima casuale tra sedia e banco
-                distanza_min = 400
-                distanza_max = 700
-                banco_rect.left = sedia_rect.right + random.randint(distanza_min, distanza_max)
-                # evitare che parta fuori schermo
-                if banco_rect.left > SCREEN_WIDTH:
-                    banco_rect.left = SCREEN_WIDTH
-        else:
-            # il banco si muove solo se attivo
-            banco_rect.x -= sedia_speed
-            # se esce dallo schermo, ricomincia dopo la sedia
-            if banco_rect.right < 0:
-                banco_active = False
-                banco_start_time = pygame.time.get_ticks()
+        if sedia_rect.left > player_rect.right:
+            sedia_passata = False
         
         # --- Disegno sedia ---
         screen.blit(imgSedia, sedia_rect)
-        # --- Disegno banco ---
-        screen.blit(imgBanco, banco_rect)
         
         # ---Riduce area dei nemici e personaggio ---
         sedia_hitbox = sedia_rect.inflate(-100, -100)
-        banco_hitbox = banco_rect.inflate(-50, -50)  # hitbox più precisa
         player_hitbox = player_rect.inflate(-100, -100)
+        campanella_hitbox = campanella_rect.inflate(-100, -100)
         
         # --- Collisione con sedia---
         if player_hitbox.colliderect(sedia_hitbox):
+            Livello1 = False
             fineGioco = True
+            punteggio = 0
+            reset_gioco()
+       
         
-        # Collisione banco: perde solo se NON striscia
-        if player_hitbox.colliderect(banco_hitbox) and not is_crouching:
-            fineGioco = True
+        # raggiungimento 100 punti --> compare la campanella
+        testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
+        screen.blit(testo_punti,(50,50))
+        
+        if punteggio >= 100:
+            campanella_attiva = True
+            
+        if campanella_attiva:
+            campanella_rect.x -= 10
+            screen.blit(imgCampanella, campanella_rect)
+        
+        # --- Vittoria ---
+        if campanella_attiva and player_hitbox.colliderect(campanella_hitbox):
+            Livello1 = False
+            vittoria = True
+            screen.blit(imgHaiVinto1,(0,0))
             
         if fineGioco:
             screen.blit(imgHaiPerso, (0, 0))
-            # Resetta le posizioni dei nemici
-            reset_gioco()
-        
+            # Resetta le posizioni dei nemici     
             
     elif Livello2:
         screen.blit(imgLivello, (0, 0))
         keys = pygame.key.get_pressed()
-        
-        # --- Movimento nemico ---
-        sedia_rect.x -= sedia_speed
-        # Se esce dallo schermo ricompare a destra
-        if sedia_rect.right < 0:
-            sedia_rect.left = SCREEN_WIDTH
         
         # -------- SALTO --------
         if keys[pygame.K_SPACE] and al_suolo:
@@ -537,78 +571,148 @@ while running:
         else:
             screen.blit(imgPers2, player_rect)
             
-       # --- Disegno nemico ---
-        screen.blit(imgSedia, sedia_rect)
+       # --- Movimento banco ---
+        if not campanella_attiva:
+            banco_rect.x -= banco_speed
+            if banco_rect.right < 0:
+                banco_rect.left = SCREEN_WIDTH
+            
+        # quando il banco passa il player
+        if banco_rect.right < player_rect.left and not banco_passato:
+            punteggio += 15
+            banco_passato = True
+
+        if banco_rect.left > player_rect.right:
+            banco_passato = False
+            
+        # --- Disegno banco ---
+        screen.blit(imgBanco, banco_rect)
         
-        # ---Riduce area del nemico e personaggio ---
-        sedia_hitbox = sedia_rect.inflate(-100, -100)
+        # ---Riduce area dei nemici e personaggio ---
+        banco_hitbox = banco_rect.inflate(-50, -50)
         player_hitbox = player_rect.inflate(-100, -100)
+        campanella_hitbox = campanella_rect.inflate(-100, -100)
         
-        # --- Collisione con nemico---
-        if player_hitbox.colliderect(sedia_hitbox):
+        # Collisione banco: perde solo se NON striscia
+        if player_hitbox.colliderect(banco_hitbox) and not is_crouching:
+            #if banco_active and player_rect.colliderect(banco_rect):
+            Livello2 = False
             fineGioco = True
+            punteggio = 0
+            reset_gioco()
+
+        # raggiungimento 150 punti --> compare la campanella
+        testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
+        screen.blit(testo_punti,(50,50))
+        
+        if punteggio >= 150:
+            campanella_attiva = True
+            
+        if campanella_attiva:
+            campanella_rect.x -= 10
+            screen.blit(imgCampanella, campanella_rect)
+        
+        # --- Vittoria ---
+        if campanella_attiva and player_hitbox.colliderect(campanella_hitbox):
+            Livello2 = False
+            vittoria = True
+            screen.blit(imgHaiVinto2,(0,0))
             
         if fineGioco:
-            screen.blit(imgHaiPerso, (0, 0))   
-        
+            screen.blit(imgHaiPerso, (0, 0))
+            # Resetta le posizioni dei nemici
+            
     elif Livello3:
-        screen.blit(imgLivello, (0, 0))
+        screen.blit(imgLivello, (0,0))
         keys = pygame.key.get_pressed()
-        
-        # --- Movimento nemico ---
-        sedia_rect.x -= sedia_speed
-        # Se esce dallo schermo ricompare a destra
-        if sedia_rect.right < 0:
-            sedia_rect.left = SCREEN_WIDTH
-        
-        # -------- SALTO --------
+
+        # --- GESTIONE PLAYER ---
         if keys[pygame.K_SPACE] and al_suolo:
             vel_y = salto
             al_suolo = False
-
-        # -------- STRISCIARE --------
+            
         if keys[pygame.K_DOWN] and al_suolo:
             is_crouching = True
             player_rect.height = altezza_crouch
-            player_rect.bottom = ground_y 
+            player_rect.bottom = ground_y
+            
         else:
             is_crouching = False
             player_rect.height = altezza_normale
-            # Se non sta saltando, assicurati che i piedi tocchino terra
             if al_suolo:
                 player_rect.bottom = ground_y
-                
-        # -------- GRAVITÀ --------
+
         vel_y += gravita
         player_rect.y += vel_y
-
-        # Collisione col terreno
         if player_rect.bottom >= ground_y:
             player_rect.bottom = ground_y
             vel_y = 0
             al_suolo = True
-            
-        # --- Cambia immagine e altezza ---
+
+        # --- Cambio immagine ---
         if not al_suolo:
             screen.blit(imgPers3Jump, player_rect)
         elif is_crouching:
             screen.blit(imgPers3Crouch, player_rect)
         else:
             screen.blit(imgPers3, player_rect)
-        
-        # --- Disegno nemico ---
+
+        # --- Muove sedia e banco insieme ---
+        if not campanella_attiva:
+            sedia_rect.x -= sedia_speed
+            banco_rect.x -= banco_speed  # stessa velocità per semplicità
+
+            # Se escono dallo schermo, ricompaiono a destra
+            if sedia_rect.right < 0 and banco_rect.right < 0:
+                sedia_rect.left = SCREEN_WIDTH
+                banco_rect.left = SCREEN_WIDTH + 1000  # distanza tra sedia e banco
+                sedia_passata = False
+                banco_passato = False
+
+        # --- Disegna sedia e banco ---
         screen.blit(imgSedia, sedia_rect)
-        
-        # ---Riduce area del nemico e personaggio ---
+        screen.blit(imgBanco, banco_rect)
+
+        # --- Riduzione hitbox ---
         sedia_hitbox = sedia_rect.inflate(-100, -100)
+        banco_hitbox = banco_rect.inflate(-50, -50)
         player_hitbox = player_rect.inflate(-100, -100)
-        
-        # --- Collisione con nemico---
-        if player_hitbox.colliderect(sedia_hitbox):
+        campanella_hitbox = campanella_rect.inflate(-100, -100)
+
+        # --- Collisione ---
+        if player_hitbox.colliderect(sedia_hitbox) or (player_hitbox.colliderect(banco_hitbox) and not is_crouching):
+            Livello3 = False
             fineGioco = True
-            
+            punteggio = 0
+            reset_gioco()
+
+        # --- Punti quando passano ---
+        if sedia_rect.right < player_rect.left and not sedia_passata:
+            punteggio += 10
+            sedia_passata = True
+        if banco_rect.right < player_rect.left and not banco_passato:
+            punteggio += 10
+            banco_passato = True
+
+        # --- Punteggio a schermo ---
+        testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
+        screen.blit(testo_punti, (50,50))
+
+        # --- Campanella ---
+        if punteggio >= 200:
+            campanella_attiva = True
+        if campanella_attiva:
+            campanella_rect.x -= 10
+            screen.blit(imgCampanella, campanella_rect)
+
+        # --- Vittoria ---
+        if campanella_attiva and player_hitbox.colliderect(campanella_hitbox):
+            Livello3 = False
+            vittoria = True
+            screen.blit(imgHaiVinto3,(0,0))  # puoi cambiare immagine livello3
+
         if fineGioco:
-            screen.blit(imgHaiPerso, (0, 0))   
+            screen.blit(imgHaiPerso, (0,0))   
             
     elif Livello4:
         screen.blit(imgLivello, (0, 0))
@@ -897,6 +1001,7 @@ while running:
         # ---Riduce area del nemico e personaggio ---
         sedia_hitbox = sedia_rect.inflate(-100, -100)
         player_hitbox = player_rect.inflate(-100, -100)
+        
         
         # --- Collisione con nemico---
         if player_hitbox.colliderect(sedia_hitbox):
