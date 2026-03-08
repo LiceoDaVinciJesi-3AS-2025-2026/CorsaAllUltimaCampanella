@@ -72,6 +72,8 @@ def main() -> None:
     imgHaiVinto7 = pygame.transform.scale(imgHaiVinto7, (SCREEN_WIDTH, SCREEN_HEIGHT))
     imgHaiVinto8 = pygame.image.load("sfondoHaiVinto450.png")
     imgHaiVinto8 = pygame.transform.scale(imgHaiVinto8, (SCREEN_WIDTH, SCREEN_HEIGHT))
+    imgInformazioni = pygame.image.load("sfondoInformazioni.png") 
+    imgInformazioni = pygame.transform.scale(imgInformazioni, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
     #font delle parole nei bottoni e parole 
     Normalfont = pygame.font.SysFont('Impact', 60)
@@ -213,6 +215,18 @@ def main() -> None:
         global punteggio, sedia_passata, banco_passata, campanella_attiva
         global Livello1, Livello2, Livello3, Livello4, Livello5, Livello6, Livello7, Livello8
         global fineGioco, vittoria
+        global oscillazione_sedia, direzione_sedia
+        global home, informazioni, personaggi
+        
+        home = False
+        informazioni = False
+        personaggi = False
+        
+        oscillazione_sedia = 0
+        direzione_sedia = 1
+
+        oscillazione_banco = 0
+        direzione_banco = 1 
         
         player_rect = pygame.Rect(100, 0, larghezza_player, altezza_normale)
         player_rect.bottom = ground_y
@@ -272,7 +286,7 @@ def main() -> None:
                     banco_passato = False
                     campanella_attiva = False
                     home = True
-                    personaggi = True
+                    personaggi = False
                     punteggio = 0
                     
                     
@@ -299,46 +313,102 @@ def main() -> None:
                     elif personaggi and buttonGinnastica.collidepoint(mPos):
                         personaggi = False
                         Livello1 = True
+                        Livello2 = False
+                        Livello3 = False
+                        Livello4 = False
+                        Livello5 = False
+                        Livello6 = False
+                        Livello7 = False
+                        Livello8 = False
                         home = False
                        
                     elif personaggi and buttonStoFilo.collidepoint(mPos):
                         personaggi = False
+                        Livello1 = False
                         Livello2 = True
+                        Livello3 = False
+                        Livello4 = False
+                        Livello5 = False
+                        Livello6 = False
+                        Livello7 = False
+                        Livello8 = False
                         home = False
                         screen.blit(imgLivello, (0, 0))
                         
                     elif personaggi and buttonArte.collidepoint(mPos):
                         personaggi = False
+                        Livello1 = False
+                        Livello2 = False
                         Livello3 = True
+                        Livello4 = False
+                        Livello5 = False
+                        Livello6 = False
+                        Livello7 = False
+                        Livello8 = False
                         home = False
                         screen.blit(imgLivello, (0, 0))
                         
                     elif personaggi and buttonInglese.collidepoint(mPos):
                         personaggi = False
+                        Livello1 = False
+                        Livello2 = False
+                        Livello3 = False
                         Livello4 = True
+                        Livello5 = False
+                        Livello6 = False
+                        Livello7 = False
+                        Livello8 = False
                         home = False
                         screen.blit(imgLivello, (0, 0))
                     
                     elif personaggi and buttonMatematica.collidepoint(mPos):
                         personaggi = False
+                        Livello1 = False
+                        Livello2 = False
+                        Livello3 = False
+                        Livello4 = False
                         Livello5 = True
+                        Livello6 = False
+                        Livello7 = False
+                        Livello8 = False
                         home = False
                         screen.blit(imgLivello, (0, 0))
                      
                     elif personaggi and buttonFisica.collidepoint(mPos):
                         personaggi = False
+                        Livello1 = False
+                        Livello2 = False
+                        Livello3 = False
+                        Livello4 = False
+                        Livello5 = False
                         Livello6 = True
+                        Livello7 = False
+                        Livello8 = False
                         home = False
                         screen.blit(imgLivello, (0, 0))
                     
                     elif personaggi and buttonScienze.collidepoint(mPos):
                         personaggi = False
+                        Livello1 = False
+                        Livello2 = False
+                        Livello3 = False
+                        Livello4 = False
+                        Livello5 = False
+                        Livello6 = False
                         Livello7 = True
+                        Livello8 = False
                         home = False
                         screen.blit(imgLivello, (0, 0))
                         
                     elif personaggi and buttonInformatica.collidepoint(mPos):
                         personaggi = False
+                        Livello1 = False
+                        Livello2 = False
+                        Livello3 = False
+                        Livello4 = False
+                        Livello5 = False
+                        Livello6 = False
+                        Livello7 = False
                         Livello8 = True
                         home = False
                         screen.blit(imgLivello, (0, 0))
@@ -464,12 +534,14 @@ def main() -> None:
                     home = True
                     
         elif informazioni:
-            screen.fill("red")
+            screen.blit(imgInformazioni, (0, 0))
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    informazioni = False
                     home = True
-                    personaggi = True
+                    personaggi = False
+                
                     
         elif Livello1:
             screen.blit(imgLivello, (0, 0))
@@ -543,7 +615,7 @@ def main() -> None:
                 
             if fineGioco:
                 screen.blit(imgHaiPerso, (0, 0))
-                # Resetta le posizioni dei nemici     
+                # Resetta le posizioni dei nemici
                 
         elif Livello2:
             screen.blit(imgLivello, (0, 0))
@@ -886,7 +958,7 @@ def main() -> None:
             if keys[pygame.K_SPACE] and al_suolo:
                 vel_y = salto
                 al_suolo = False
-
+        
             # -------- STRISCIARE --------
             if keys[pygame.K_DOWN] and al_suolo:
                 is_crouching = True
@@ -936,7 +1008,7 @@ def main() -> None:
             # --- Reset posizione nemici con distanza minima ---
             distanza_min = 900
             distanza_max = 1200
-            spazio_minimo = 800  # distanza minima tra sedia e banco
+            spazio_minimo = 1000  # distanza minima tra sedia e banco
 
             # Sedia
             if sedia_rect.right < 0:
