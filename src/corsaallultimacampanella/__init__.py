@@ -6,13 +6,13 @@ def main() -> None:
 
     pygame.init() #Inzia pygame
 
-    suono_home = pygame.mixer.Sound("suonoHome.mp3")
-    suono_vittoria = pygame.mixer.Sound("suonoVittoria.mp3")
-    suono_fineGioco = pygame.mixer.Sound("suonoPerdita.mp3")
-    pygame.mixer.init() 
-    pygame.mixer.music.load("suonoHome.mp3")
-    pygame.mixer.music.set_volume(1) 
-    suono_home.play()
+    suono_home = pygame.mixer.music("suonoHome.mp3") #Carica il file musicale che viene riprodotto nella schermata home e nei vari livelli
+    suono_vittoria = pygame.mixer.Sound("suonoVittoria.mp3") #Carica il suono che verrà riprodotto quando il giocatore vince
+    suono_fineGioco = pygame.mixer.Sound("suonoPerdita.mp3") #Carica il suono che verrà riprodotto quando il giocatore perde
+    pygame.mixer.init() #Inizializza il sistema audio di pygame (senza i suoni non partono)
+    pygame.mixer.music.load("suonoHome.mp3") #Carica il file della home nel mixer di pygame
+    pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone al 50%
+    suono_home.play(-1) #Riproduce il suono, all'infinito, nella schermata home e nei veri livelli
     
     #Dimesioni finestra del gioco
     SCREEN_WIDTH = 1600
@@ -631,10 +631,10 @@ def main() -> None:
             if player_hitbox.colliderect(sedia_hitbox):
                 fineGioco = True #Perde
                 punteggio = - 10 #Azzerra il punteggio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta
 
             #Inserimento del testo del punteggio nella schermata di gioco (in alto a sinistra)
             testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
@@ -652,10 +652,10 @@ def main() -> None:
                 Livello1 = False
                 vittoria = True
                 screen.blit(imgHaiVinto1,(0,0))
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_vittoria.play() #Riproduce il suono di vittoria
                 
             if fineGioco:
                 screen.blit(imgHaiPerso, (0, 0))
@@ -719,10 +719,10 @@ def main() -> None:
             if player_hitbox.colliderect(banco_hitbox) and not is_crouching:
                 fineGioco = True #Perde
                 punteggio = -15 #Azzera punteggio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta
 
             #Inserimento del testo del punteggio nella schermata di gioco (in alto a sinistra)
             testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
@@ -740,10 +740,10 @@ def main() -> None:
                 Livello2 = False
                 vittoria = True
                 screen.blit(imgHaiVinto2,(0,0))
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_vittoria.play() #Riproduce il suono di vittoria
                 
             if fineGioco:
                 screen.blit(imgHaiPerso, (0, 0))
@@ -810,27 +810,19 @@ def main() -> None:
             if player_hitbox.colliderect(sedia_hitbox) or (player_hitbox.colliderect(banco_hitbox) and not is_crouching):
                 fineGioco = True #Perdi
                 punteggio = - 15 #Azzera punteggio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta
 
             #Se il giocatore passa la sedia 
             if sedia_rect.right < player_rect.left and not sedia_passata:
                 punteggio += 10 #Aggiunge 10 punti
                 sedia_passata = True
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
             #Se il giocatore passa il banco
             if banco_rect.right < player_rect.left and not banco_passato:
                 punteggio += 15 #Aggiunge 15 punti
                 banco_passato = True
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
 
             #Inserimento del testo del punteggio nella schermata di gioco (in alto a sinistra)
             testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
@@ -848,6 +840,10 @@ def main() -> None:
                 Livello3 = False
                 vittoria = True
                 screen.blit(imgHaiVinto3,(0,0))
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_vittoria.play() #Riproduce il suono di vittoria
                 
             if fineGioco:
                 screen.blit(imgHaiPerso, (0,0))
@@ -903,19 +899,15 @@ def main() -> None:
             if player_hitbox.colliderect(sedia_hitbox):
                 fineGioco = True #Perde
                 punteggio = -25 #Azzera punteggio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta
 
             #Se il giocatore passa la sedia 
             if sedia_rect.right < player_rect.left and not sedia_passata:
                 punteggio += 25 #Aggiunge 25 punti
                 sedia_passata = True
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
             
             #Inserimento del testo del punteggio nella schermata di gioco (in alto a sinistra)
             testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
@@ -933,6 +925,10 @@ def main() -> None:
                 Livello4 = False
                 vittoria = True
                 screen.blit(imgHaiVinto4,(0,0))
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_vittoria.play() #Riproduce il suono di vittoria
 
             if fineGioco:
                 screen.blit(imgHaiPerso, (0,0))
@@ -994,20 +990,16 @@ def main() -> None:
             if player_hitbox.colliderect(banco_hitbox) and not is_crouching:
                 fineGioco = True #Perde
                 punteggio = - 30 #Azzzera punteggio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta
                 
             #Se il giocatore passa il banco
             if banco_rect.right < player_rect.left and not banco_passato:
                 punteggio += 30 #Aggiunge 30 punti
                 banco_passato = True
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
-            
+
             #Inserimento del testo del punteggio nella schermata di gioco (in alto a sinistra)
             testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
             screen.blit(testo_punti, (50,50))
@@ -1024,6 +1016,10 @@ def main() -> None:
                 Livello5 = False
                 vittoria = True
                 screen.blit(imgHaiVinto5, (0,0))
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_vittoria.play() #Riproduce il suono di vittoria
                 
             if fineGioco:
                 screen.blit(imgHaiPerso, (0,0))
@@ -1107,35 +1103,27 @@ def main() -> None:
             if player_hitbox.colliderect(sedia_hitbox):
                 fineGioco = True #Perde
                 punteggio = - 15 #Azzera puntezzio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta
             #Se il giocatore colpisce il banco
             if player_hitbox.colliderect(banco_hitbox) and not is_crouching:
                 fineGioco = True #Perde
                 punteggio = - 20 #Azzera punteggio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta
 
             #Se il giocatore passa la sedia 
             if sedia_rect.right < player_rect.left and not sedia_passata:
                 punteggio += 15 #Aggiungi 15 punti
                 sedia_passata = True
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
             #Se il giocatore passa il banco
             if banco_rect.right < player_rect.left and not banco_passato:
                 punteggio += 20 #Aggiungi 20 punti
                 banco_passato = True
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
             
             #Inserimento del testo del punteggio nella schermata di gioco (in alto a sinistra)
             testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
@@ -1153,6 +1141,10 @@ def main() -> None:
                 Livello6 = False
                 vittoria = True
                 screen.blit(imgHaiVinto6,(0,0))
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_vittoria.play() #Riproduce il suono di vittoria
 
             if fineGioco:
                 screen.blit(imgHaiPerso, (0,0))
@@ -1250,35 +1242,27 @@ def main() -> None:
             if player_hitbox.colliderect(sedia_hitbox):
                 fineGioco = True #Perde
                 punteggio = - 15 #Azzera punteggio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta                suono_fineGioco.play() #Riproduce il suono
             #Se il giocatore colpisce il banco
             if player_hitbox.colliderect(banco_hitbox) and not is_crouching:
                 fineGioco = True #Perde
                 punteggio = - 25 #Azzzera punteggio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta
             
             #Se il giocatore passa la sedia
             if sedia_rect.right < player_rect.left and not sedia_passata:
                 punteggio += 15 #Aggiunge 15 punti
                 sedia_passata = True
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
             #Se il giocatore passa il banco
             if banco_rect.right < player_rect.left and not banco_passato:
                 punteggio += 25 #Aggiunge 25 punti
                 banco_passato = True
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
             
             #Inserimento del testo del punteggio nella schermata di gioco (in alto a sinistra)
             testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
@@ -1296,6 +1280,10 @@ def main() -> None:
                 Livello6 = False
                 vittoria = True
                 screen.blit(imgHaiVinto7,(0,0))
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_vittoria.play() #Riproduce il suono di vittoria
 
             if fineGioco:
                 screen.blit(imgHaiPerso, (0,0))
@@ -1410,36 +1398,28 @@ def main() -> None:
             if player_hitbox.colliderect(sedia_hitbox):
                 fineGioco = True #Perde
                 punteggio = - 20 #Azzera punteggio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta
             #Se il giocatore colpisce il banco
             if player_hitbox.colliderect(banco_hitbox) and not is_crouching:
                 fineGioco = True #Perde
                 punteggio = - 25 #Azzera punteggio
-                suono_home.stop()
-                pygame.mixer.music.load("suonoPerdita.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_fineGioco.play()
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_fineGioco.play() #Riproduce il suono di sconfitta
 
             #Se il giocatore passa la sedia
             if sedia_rect.right < player_rect.left and not sedia_passata:
                 punteggio += 20 #Aggiunge 20 punti
                 sedia_passata = True
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
             #Se il giocatore passa il banco
             if banco_rect.right < player_rect.left and not banco_passato:
                 punteggio += 25 #Aggiunge 25 punti
                 banco_passato = True
-                suono_home.stop()
-                pygame.mixer.music.load("suonoVittoria.mp3") 
-                pygame.mixer.music.set_volume(0.5) 
-                suono_vittoria.play()
-            
+                
             #Inserimento del testo del punteggio nella schermata di gioco (in alto a sinistra)
             testo_punti = font_punti.render("Punti: " + str(punteggio), True, "black")
             screen.blit(testo_punti,(50,50))
@@ -1456,6 +1436,10 @@ def main() -> None:
                 vittoria = True   
             if vittoria:
                 screen.blit(imgHaiVinto8,(0,0))
+                suono_home.stop() #Ferma la musica che sta suonando
+                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
+                suono_vittoria.play() #Riproduce il suono di vittoria
 
             if fineGioco:
                 screen.blit(imgHaiPerso, (0,0))             
