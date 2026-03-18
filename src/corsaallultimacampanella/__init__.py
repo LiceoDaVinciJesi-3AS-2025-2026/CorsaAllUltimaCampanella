@@ -1,8 +1,10 @@
 def main() -> None:
     print("Hello from corsaallultimacampanella!")
     
+    #Libreria Standard
+    import random #Per generare le posizioni casuali
+    #Librerie pip
     import pygame
-    import random #Per generare le posizioni casuali 
 
     pygame.init() #Inzia pygame
 
