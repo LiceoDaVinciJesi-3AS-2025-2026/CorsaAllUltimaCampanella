@@ -1,18 +1,21 @@
-def main() -> None:
-    print("Hello from corsaallultimacampanella!")
-    
-    #Libreria Standard
-    import random #Per generare le posizioni casuali
-    #Librerie pip
-    import pygame
+#Libreria Standard
+import random #Per generare le posizioni casuali
 
+#Librerie pip
+import pygame
+
+#Le nostre
+from .resources import *
+
+def main() -> None:
+    
     pygame.init() #Inzia pygame
 
-    suono_home = pygame.mixer.music("suonoHome.mp3") #Carica il file musicale che viene riprodotto nella schermata home e nei vari livelli
-    suono_vittoria = pygame.mixer.Sound("suonoVittoria.mp3") #Carica il suono che verrà riprodotto quando il giocatore vince
-    suono_fineGioco = pygame.mixer.Sound("suonoPerdita.mp3") #Carica il suono che verrà riprodotto quando il giocatore perde
+    suono_home = pygame.mixer.Sound( get_sound("suonoHome.mp3") ) #Carica il file musicale che viene riprodotto nella schermata home e nei vari livelli (era music)
+    suono_vittoria = pygame.mixer.Sound( get_sound("suonoVittoria.mp3") ) #Carica il suono che verrà riprodotto quando il giocatore vince
+    suono_fineGioco = pygame.mixer.Sound( get_sound("suonoPerdita.mp3") ) #Carica il suono che verrà riprodotto quando il giocatore perde
     pygame.mixer.init() #Inizializza il sistema audio di pygame (senza i suoni non partono)
-    pygame.mixer.music.load("suonoHome.mp3") #Carica il file della home nel mixer di pygame
+    pygame.mixer.music.load( get_sound("suonoHome.mp3") ) #Carica il file della home nel mixer di pygame
     pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone al 50%
     suono_home.play(-1) #Riproduce il suono, all'infinito, nella schermata home e nei veri livelli
     
@@ -36,53 +39,53 @@ def main() -> None:
     buttonInformatica = pygame.Rect(SCREEN_WIDTH // 1.32, SCREEN_HEIGHT // 1.14, 230, 60)
 
     #Imposta lo sfondo della schermata HOME
-    imgSfondoPrincipale = pygame.image.load("pixelscuola.png") 
+    imgSfondoPrincipale = pygame.image.load( get_image("pixelscuola.png") )
     imgSfondoPrincipale = pygame.transform.scale(imgSfondoPrincipale,(SCREEN_WIDTH,SCREEN_HEIGHT))
     #Imposta lo sfondo della schermata START/PERSONAGGI
-    imgSfondoPersonaggi = pygame.image.load("sfondopersonaggi.png")
+    imgSfondoPersonaggi = pygame.image.load( get_image("sfondopersonaggi.png") )
     imgSfondoPersonaggi = pygame.transform.scale(imgSfondoPersonaggi,(SCREEN_WIDTH,SCREEN_HEIGHT))
     #Imposta lo sfondo della schermata INFORMAZIONI
-    imgInformazioni = pygame.image.load("sfondoInformazioni.png") 
+    imgInformazioni = pygame.image.load( get_image("sfondoInformazioni.png") )
     imgInformazioni = pygame.transform.scale(imgInformazioni, (SCREEN_WIDTH, SCREEN_HEIGHT))
     
     #Inserisce le immagini dei prof nella schermata START/PERSONAGGI
-    imgGinnastica = pygame.image.load("pixelginnastica.png") 
+    imgGinnastica = pygame.image.load( get_image("pixelginnastica.png") )
     imgGinnastica = pygame.transform.scale(imgGinnastica,(320,310))
-    imgStofilo = pygame.image.load("pixelstofilo.png") 
+    imgStofilo = pygame.image.load( get_image("pixelstofilo.png") )
     imgStofilo = pygame.transform.scale(imgStofilo,(170,270))
-    imgArte = pygame.image.load("pixelarte.png") 
+    imgArte = pygame.image.load( get_image("pixelarte.png") )
     imgArte = pygame.transform.scale(imgArte,(150,275))
-    imgInglese = pygame.image.load("pixeling.png") 
+    imgInglese = pygame.image.load( get_image("pixeling.png") )
     imgInglese = pygame.transform.scale(imgInglese,(145,280))
-    imgMatematica = pygame.image.load("pixelmate.png") 
+    imgMatematica = pygame.image.load( get_image("pixelmate.png") )
     imgMatematica = pygame.transform.scale(imgMatematica,(170,250))
-    imgFisica = pygame.image.load("pixelfisica.png") 
+    imgFisica = pygame.image.load( get_image("pixelfisica.png") )
     imgFisica = pygame.transform.scale(imgFisica,(150,280))
-    imgScienze = pygame.image.load("pixelscienze.png") 
+    imgScienze = pygame.image.load( get_image("pixelscienze.png") )
     imgScienze = pygame.transform.scale(imgScienze,(130,285))
-    imgInformatica = pygame.image.load("pixelinfo.png") 
+    imgInformatica = pygame.image.load( get_image("pixelinfo.png") )
     imgInformatica = pygame.transform.scale(imgInformatica,(170,270))
 
     #Inserisce lo sfondo per ogni livello, per quando perdi o vinci
-    imgLivello = pygame.image.load("sfondoLivello.png") 
+    imgLivello = pygame.image.load( get_image("sfondoLivello.png") )
     imgLivello = pygame.transform.scale(imgLivello, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    imgHaiPerso = pygame.image.load("sfondoHaiPerso.png")
+    imgHaiPerso = pygame.image.load( get_image("sfondoHaiPerso.png") )
     imgHaiPerso = pygame.transform.scale(imgHaiPerso, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    imgHaiVinto1 = pygame.image.load("sfondoHaiVinto100.png")
+    imgHaiVinto1 = pygame.image.load( get_image("sfondoHaiVinto100.png") )
     imgHaiVinto1 = pygame.transform.scale(imgHaiVinto1, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    imgHaiVinto2 = pygame.image.load("sfondoHaiVinto150.png")
+    imgHaiVinto2 = pygame.image.load( get_image("sfondoHaiVinto150.png") )
     imgHaiVinto2 = pygame.transform.scale(imgHaiVinto2, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    imgHaiVinto3 = pygame.image.load("sfondoHaiVinto200.png")
+    imgHaiVinto3 = pygame.image.load( get_image("sfondoHaiVinto200.png") )
     imgHaiVinto3 = pygame.transform.scale(imgHaiVinto3, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    imgHaiVinto4 = pygame.image.load("sfondoHaiVinto250.png")
+    imgHaiVinto4 = pygame.image.load( get_image("sfondoHaiVinto250.png") )
     imgHaiVinto4 = pygame.transform.scale(imgHaiVinto4, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    imgHaiVinto5 = pygame.image.load("sfondoHaiVinto300.png")
+    imgHaiVinto5 = pygame.image.load( get_image("sfondoHaiVinto300.png") )
     imgHaiVinto5 = pygame.transform.scale(imgHaiVinto5, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    imgHaiVinto6 = pygame.image.load("sfondoHaiVinto350.png")
+    imgHaiVinto6 = pygame.image.load( get_image("sfondoHaiVinto350.png") )
     imgHaiVinto6 = pygame.transform.scale(imgHaiVinto6, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    imgHaiVinto7 = pygame.image.load("sfondoHaiVinto400.png")
+    imgHaiVinto7 = pygame.image.load( get_image("sfondoHaiVinto400.png") )
     imgHaiVinto7 = pygame.transform.scale(imgHaiVinto7, (SCREEN_WIDTH, SCREEN_HEIGHT))
-    imgHaiVinto8 = pygame.image.load("sfondoHaiVinto450.png")
+    imgHaiVinto8 = pygame.image.load( get_image("sfondoHaiVinto450.png") )
     imgHaiVinto8 = pygame.transform.scale(imgHaiVinto8, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
     #Font delle parole nei bottoni e parole 
@@ -106,52 +109,52 @@ def main() -> None:
     player_rect.bottom = ground_y
 
     #Immagini di ogni personaggio (in piedi, sdraiato e in aria)
-    imgPers1 = pygame.image.load("pixelginnastica.png").convert_alpha()
+    imgPers1 = pygame.image.load( get_image("pixelginnastica.png") ).convert_alpha()
     imgPers1 = pygame.transform.scale(imgPers1, (larghezza_player, altezza_normale))
-    imgPers1Jump = pygame.image.load("ginnasticasalto.png").convert_alpha()
+    imgPers1Jump = pygame.image.load( get_image("ginnasticasalto.png") ).convert_alpha()
     imgPers1Jump = pygame.transform.scale(imgPers1Jump, (larghezza_player, altezza_normale))
 
-    imgPers2 = pygame.image.load("pixelstofilo.png").convert_alpha()
+    imgPers2 = pygame.image.load( get_image("pixelstofilo.png") ).convert_alpha()
     imgPers2 = pygame.transform.scale(imgPers2, (larghezza_player - 180, altezza_normale - 10))
-    imgPers2Crouch = pygame.image.load("stofilosdraiato.png").convert_alpha()
+    imgPers2Crouch = pygame.image.load( get_image("stofilosdraiato.png") ).convert_alpha()
     imgPers2Crouch = pygame.transform.scale(imgPers2Crouch, (larghezza_player, altezza_crouch - 175))
 
-    imgPers3 = pygame.image.load("pixelarte.png").convert_alpha()
+    imgPers3 = pygame.image.load( get_image("pixelarte.png") ).convert_alpha()
     imgPers3 = pygame.transform.scale(imgPers3, (larghezza_player - 200, altezza_normale - 20))
-    imgPers3Crouch = pygame.image.load("artesdraiato.png").convert_alpha()
+    imgPers3Crouch = pygame.image.load( get_image("artesdraiato.png") ).convert_alpha()
     imgPers3Crouch = pygame.transform.scale(imgPers3Crouch, (larghezza_player + 40, altezza_crouch - 175))
-    imgPers3Jump = pygame.image.load("artesalto.png").convert_alpha()
+    imgPers3Jump = pygame.image.load( get_image("artesalto.png") ).convert_alpha()
     imgPers3Jump = pygame.transform.scale(imgPers3Jump, (larghezza_player - 120, altezza_normale - 90))
 
-    imgPers4 = pygame.image.load("pixeling.png").convert_alpha()
+    imgPers4 = pygame.image.load( get_image("pixeling.png") ).convert_alpha()
     imgPers4 = pygame.transform.scale(imgPers4, (larghezza_player - 250, altezza_normale - 25))
-    imgPers4Jump = pygame.image.load("inglesesalto.png").convert_alpha()
+    imgPers4Jump = pygame.image.load( get_image("inglesesalto.png") ).convert_alpha()
     imgPers4Jump = pygame.transform.scale(imgPers4Jump, (larghezza_player - 30, altezza_normale - 90))
 
-    imgPers5 = pygame.image.load("pixelmate.png").convert_alpha()
+    imgPers5 = pygame.image.load( get_image("pixelmate.png") ).convert_alpha()
     imgPers5 = pygame.transform.scale(imgPers5, (larghezza_player - 200, altezza_normale - 10))
-    imgPers5Crouch = pygame.image.load("matesdraiato.png").convert_alpha()
+    imgPers5Crouch = pygame.image.load( get_image("matesdraiato.png") ).convert_alpha()
     imgPers5Crouch = pygame.transform.scale(imgPers5Crouch, (larghezza_player - 5, altezza_crouch + 75))
 
-    imgPers6 = pygame.image.load("pixelfisica.png").convert_alpha()
+    imgPers6 = pygame.image.load( get_image("pixelfisica.png") ).convert_alpha()
     imgPers6 = pygame.transform.scale(imgPers6, (larghezza_player - 200, altezza_normale + 20))
-    imgPers6Crouch = pygame.image.load("fisicasdraiato.png").convert_alpha()
+    imgPers6Crouch = pygame.image.load( get_image("fisicasdraiato.png") ).convert_alpha()
     imgPers6Crouch = pygame.transform.scale(imgPers6Crouch, (larghezza_player - 10, altezza_crouch - 75))
-    imgPers6Jump = pygame.image.load("fisicasalto.png").convert_alpha()
+    imgPers6Jump = pygame.image.load( get_image("fisicasalto.png") ).convert_alpha()
     imgPers6Jump = pygame.transform.scale(imgPers6Jump, (larghezza_player - 50, altezza_normale - 100))
 
-    imgPers7 = pygame.image.load("pixelscienze.png").convert_alpha()
+    imgPers7 = pygame.image.load( get_image("pixelscienze.png") ).convert_alpha()
     imgPers7 = pygame.transform.scale(imgPers7, (larghezza_player - 230, altezza_normale))
-    imgPers7Crouch = pygame.image.load("scienzesdraiato.png").convert_alpha()
+    imgPers7Crouch = pygame.image.load( get_image("scienzesdraiato.png") ).convert_alpha()
     imgPers7Crouch = pygame.transform.scale(imgPers7Crouch, (larghezza_player - 40, altezza_crouch - 160))
-    imgPers7Jump = pygame.image.load("scienzesalto.png").convert_alpha()
+    imgPers7Jump = pygame.image.load( get_image("scienzesalto.png") ).convert_alpha()
     imgPers7Jump = pygame.transform.scale(imgPers7Jump, (larghezza_player -50, altezza_normale - 150))
 
-    imgPers8 = pygame.image.load("pixelinfo.png").convert_alpha()
+    imgPers8 = pygame.image.load( get_image("pixelinfo.png") ).convert_alpha()
     imgPers8 = pygame.transform.scale(imgPers8, (larghezza_player - 200, altezza_normale - 10))
-    imgPers8Crouch = pygame.image.load("informaticasdraiato.png").convert_alpha()
+    imgPers8Crouch = pygame.image.load( get_image("informaticasdraiato.png") ).convert_alpha()
     imgPers8Crouch = pygame.transform.scale(imgPers8Crouch, (larghezza_player - 5, altezza_crouch - 60))
-    imgPers8Jump = pygame.image.load("infosalto.png").convert_alpha()
+    imgPers8Jump = pygame.image.load( get_image("infosalto.png") ).convert_alpha()
     imgPers8Jump = pygame.transform.scale(imgPers8Jump, (larghezza_player - 60, altezza_normale - 75))
 
     # - NEMICO SEDIA
@@ -161,7 +164,7 @@ def main() -> None:
     sedia_rect.bottom = ground_y #Sedia si trova all'altezza del terreno
     sedia_rect.left = 1200
     sedia_speed = 15 #Velocità sedia
-    imgSedia = pygame.image.load("sedia.png").convert_alpha() #Inserimento dell'immagine della sedia
+    imgSedia = pygame.image.load( get_image("sedia.png") ).convert_alpha() #Inserimento dell'immagine della sedia
     imgSedia = pygame.transform.scale(imgSedia, (sedia_width, sedia_height)) #Ridimensione dell'immagine della sedia
 
     # - NEMICO BANCO
@@ -173,7 +176,7 @@ def main() -> None:
     banco_speed = 15 #Velocità banco
     banco_active = False #All'inzio il banco è inattivo(fermo)
     banco_start_time = pygame.time.get_ticks()
-    imgBanco = pygame.image.load("banco.png").convert_alpha() #Inserimento dell'immagine del banco
+    imgBanco = pygame.image.load( get_image("banco.png") ).convert_alpha() #Inserimento dell'immagine del banco
     imgBanco = pygame.transform.scale(imgBanco, (banco_width, banco_height)) #Ridimensione dell'immagine del banco
     
     # - NEMICO LIBRO 
@@ -182,7 +185,7 @@ def main() -> None:
     gravita_libro = 1
     libro_attivo = True
     shake_timer = 0 # tempo per cui lo schermo trema
-    imgLibroScienze = pygame.image.load("libroScienze.png").convert_alpha() #Inserimento dell'immagine del libro
+    imgLibroScienze = pygame.image.load( get_image("libroScienze.png") ).convert_alpha() #Inserimento dell'immagine del libro
     imgLibroScienze = pygame.transform.scale(imgLibroScienze, ( 100, 100)) #Ridimensione dell'immagine del libro
     
     # - NEMICO COMPUTER
@@ -191,7 +194,7 @@ def main() -> None:
     gravita_computer = 1
     computer_attivo = True
     shake_timer = 0 # tempo per cui lo schermo trema
-    imgComputer = pygame.image.load("computer.png").convert_alpha() #Inserimento dell'immagine del computer
+    imgComputer = pygame.image.load( get_image("computer.png") ).convert_alpha() #Inserimento dell'immagine del computer
     imgComputer = pygame.transform.scale(imgComputer, ( 100, 100)) #Ridimensione dell'immagine del computer
 
     # - PUNTEGGIO 
@@ -203,7 +206,7 @@ def main() -> None:
     # - CAMPANELLA
     campanella_attiva = False #Quando arrivi alla fine del livello arriva la campanella --> hai vinto!
     campanella_rect = pygame.Rect(1200, ground_y - 200, 120, 120) #Rettangolo pygame per disegnare e gestire la campanella e le collisioni
-    imgCampanella = pygame.image.load("campanella.png").convert_alpha() #Inserimento dell'immagine della campanella 
+    imgCampanella = pygame.image.load( get_image("campanella.png") ).convert_alpha() #Inserimento dell'immagine della campanella 
     imgCampanella = pygame.transform.scale(imgCampanella,(200,200)) #Ridimensione dell'immagine della campanella
 
     #Oscillazione nemici
@@ -234,7 +237,7 @@ def main() -> None:
     Livello7 = False 
     Livello8 = False
 
-    # - INIZIALIZZAZIONE LIVELLI
+    #INIZIALIZZAZIONE LIVELLI
     livello_corrente = None  #livello in cui ti trovi (Livello1, Livello2,....)
     fineGioco = False
 
@@ -634,7 +637,7 @@ def main() -> None:
                 fineGioco = True #Perde
                 punteggio = - 10 #Azzerra il punteggio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") ) #Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta
 
@@ -655,7 +658,7 @@ def main() -> None:
                 vittoria = True
                 screen.blit(imgHaiVinto1,(0,0))
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoVittoria.mp3") ) #Carica il nuovo file musicale di vittoria nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_vittoria.play() #Riproduce il suono di vittoria
                 
@@ -722,7 +725,7 @@ def main() -> None:
                 fineGioco = True #Perde
                 punteggio = -15 #Azzera punteggio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") ) #Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta
 
@@ -743,7 +746,7 @@ def main() -> None:
                 vittoria = True
                 screen.blit(imgHaiVinto2,(0,0))
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoVittoria.mp3") ) #Carica il nuovo file musicale di vittoria nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_vittoria.play() #Riproduce il suono di vittoria
                 
@@ -813,7 +816,7 @@ def main() -> None:
                 fineGioco = True #Perdi
                 punteggio = - 15 #Azzera punteggio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") ) #Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta
 
@@ -843,7 +846,7 @@ def main() -> None:
                 vittoria = True
                 screen.blit(imgHaiVinto3,(0,0))
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoVittoria.mp3") ) #Carica il nuovo file musicale di vittoria nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_vittoria.play() #Riproduce il suono di vittoria
                 
@@ -902,7 +905,7 @@ def main() -> None:
                 fineGioco = True #Perde
                 punteggio = -25 #Azzera punteggio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") )#Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta
 
@@ -928,7 +931,7 @@ def main() -> None:
                 vittoria = True
                 screen.blit(imgHaiVinto4,(0,0))
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoVittoria.mp3") ) #Carica il nuovo file musicale di vittoria nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_vittoria.play() #Riproduce il suono di vittoria
 
@@ -993,7 +996,7 @@ def main() -> None:
                 fineGioco = True #Perde
                 punteggio = - 30 #Azzzera punteggio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") )#Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta
                 
@@ -1019,7 +1022,7 @@ def main() -> None:
                 vittoria = True
                 screen.blit(imgHaiVinto5, (0,0))
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoVittoria.mp3") ) #Carica il nuovo file musicale di vittoria nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_vittoria.play() #Riproduce il suono di vittoria
                 
@@ -1106,7 +1109,7 @@ def main() -> None:
                 fineGioco = True #Perde
                 punteggio = - 15 #Azzera puntezzio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") ) #Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta
             #Se il giocatore colpisce il banco
@@ -1114,7 +1117,7 @@ def main() -> None:
                 fineGioco = True #Perde
                 punteggio = - 20 #Azzera punteggio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") ) #Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta
 
@@ -1144,7 +1147,7 @@ def main() -> None:
                 vittoria = True
                 screen.blit(imgHaiVinto6,(0,0))
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoVittoria.mp3") ) #Carica il nuovo file musicale di vittoria nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_vittoria.play() #Riproduce il suono di vittoria
 
@@ -1245,7 +1248,7 @@ def main() -> None:
                 fineGioco = True #Perde
                 punteggio = - 15 #Azzera punteggio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") )#Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta                suono_fineGioco.play() #Riproduce il suono
             #Se il giocatore colpisce il banco
@@ -1253,7 +1256,7 @@ def main() -> None:
                 fineGioco = True #Perde
                 punteggio = - 25 #Azzzera punteggio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") ) #Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta
             
@@ -1283,7 +1286,7 @@ def main() -> None:
                 vittoria = True
                 screen.blit(imgHaiVinto7,(0,0))
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoVittoria.mp3") )#Carica il nuovo file musicale di vittoria nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_vittoria.play() #Riproduce il suono di vittoria
 
@@ -1401,7 +1404,7 @@ def main() -> None:
                 fineGioco = True #Perde
                 punteggio = - 20 #Azzera punteggio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") ) #Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta
             #Se il giocatore colpisce il banco
@@ -1409,7 +1412,7 @@ def main() -> None:
                 fineGioco = True #Perde
                 punteggio = - 25 #Azzera punteggio
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoPerdita.mp3") #Carica il nuovo file musicale di sconfitta nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoPerdita.mp3") ) #Carica il nuovo file musicale di sconfitta nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_fineGioco.play() #Riproduce il suono di sconfitta
 
@@ -1439,7 +1442,7 @@ def main() -> None:
             if vittoria:
                 screen.blit(imgHaiVinto8,(0,0))
                 suono_home.stop() #Ferma la musica che sta suonando
-                pygame.mixer.music.load("suonoVittoria.mp3") #Carica il nuovo file musicale di vittoria nel mixer di pygame
+                pygame.mixer.music.load( get_sound("suonoVittoria.mp3") )  #Carica il nuovo file musicale di vittoria nel mixer di pygame
                 pygame.mixer.music.set_volume(0.5) #Imposta il volume della canzone
                 suono_vittoria.play() #Riproduce il suono di vittoria
 
