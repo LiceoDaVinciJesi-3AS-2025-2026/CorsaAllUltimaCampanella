@@ -1,3 +1,19 @@
+# Corsa all'ultima campanella - In this game you have to help the teachers
+# get to class on time, dodging desks, chairs and flying objects!
+
+# As soon as you enter the game, on the home screen you will find a button
+# for information on how to play and another that allows you to choose the
+# level you want to play. Once chosen, slide the player over the desk or make
+# him jump off the chair BUT watch out for the books and computers that make
+# the room shake! As soon as you see the bell you can breathe a sigh of relief
+# because YOU WON!
+
+# License: See LICENSE file in the project root for details.
+
+# Authors: 
+# Viola Alfieri <viola.alfieri09@gmail.com>
+# Matilde Bottegoni <bottegonimaty@gmail.com>
+
 #Libreria Standard
 import random #Per generare le posizioni casuali
 
