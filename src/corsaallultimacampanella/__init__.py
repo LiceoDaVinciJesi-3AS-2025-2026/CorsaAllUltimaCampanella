@@ -246,7 +246,7 @@ def main() -> None:
     home = True
     vittoria = False
     informazioni = False
-    personaggi = False 
+    personaggi = False
     gioco = False
     fineGioco = False 
     Livello1 = False 
@@ -343,8 +343,8 @@ def main() -> None:
                     vel_y = 0
                     banco_passato = False
                     campanella_attiva = False
-                    home = True
-                    personaggi = False
+                    home = False
+                    personaggi = True
                     punteggio = 0
                     suono_fineGioco.stop()
                     suono_home.play()
@@ -360,7 +360,7 @@ def main() -> None:
                     vel_y = 0
                     banco_passato = False
                     campanella_attiva = False
-                    home = True
+                    home = False
                     personaggi = True
                     punteggio = 0
                     suono_vittoria.stop()
@@ -685,6 +685,7 @@ def main() -> None:
                 
             if fineGioco:
                 screen.blit(imgHaiPerso, (0, 0))
+                #personaggi = True
                 
         #Se ci troviamo nel Livello2        
         elif Livello2:
