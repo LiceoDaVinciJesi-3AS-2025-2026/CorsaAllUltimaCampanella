@@ -23,8 +23,9 @@ import random #Per generare le posizioni casuali
 
 #Librerie pip
 import pygame
+import platformdirs
 
-#Le nostre
+#Il nostro package
 from .resources import *
 
 def main() -> None:
@@ -1302,7 +1303,7 @@ def main() -> None:
 
             #Se il giocatore colpisce la campanella --> hai vinto
             if campanella_attiva and player_hitbox.colliderect(campanella_hitbox):
-                Livello6 = False
+                Livello7 = False
                 vittoria = True
                 screen.blit(imgHaiVinto7,(0,0))
                 suono_home.stop() #Ferma la musica che sta suonando
@@ -1458,8 +1459,8 @@ def main() -> None:
 
             #Se il giocatore colpisce la campanella --> hai vinto
             if campanella_attiva and player_hitbox.colliderect(campanella_hitbox):
+                Livello8 = False
                 vittoria = True   
-            if vittoria:
                 screen.blit(imgHaiVinto8,(0,0))
                 suono_home.stop() #Ferma la musica che sta suonando
                 pygame.mixer.music.load( get_sound("suonoVittoria.mp3") )  #Carica il nuovo file musicale di vittoria nel mixer di pygame
