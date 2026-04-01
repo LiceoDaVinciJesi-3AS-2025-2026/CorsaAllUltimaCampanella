@@ -20,3 +20,8 @@ build-backend = "uv_build"
 members = [
     "src/corsaallultimacampanella/corsaallultimacampanella",
 ]
+
+[dependency-groups]
+dev = [
+    "pyinstaller>=6.19.0",
+]
